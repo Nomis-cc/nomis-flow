@@ -1,0 +1,22 @@
+{
+  "XdcscanSettings": {
+    "ApiBaseUrl": "https://xdc.blocksscan.io/",
+    "BlockchainDescriptor": {
+      "ChainId": 50,
+      "ChainName": "XinFin XDC Network",
+      "BlockchainName": "XDC",
+      "BlockchainSlug": "xdc",
+      "BlockExplorerUrls": [
+        "https://xdcscan.io/",
+        "https://xdc.blocksscan.io/"
+      ],
+      "RPCUrls": [
+        "https://rpc.xdcrpc.com",
+        "https://erpc.xinfin.network",
+        "https://rpc.xinfin.network"
+      ],
+      "IsEVMCompatible": true,
+      "SBTContractAddresses": null
+    }
+  }
+}

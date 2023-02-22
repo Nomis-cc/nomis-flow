@@ -1,0 +1,23 @@
+{
+  "EtcExplorerSettings": {
+    "ApiBaseUrl": "https://blockscout.com/etc/mainnet/",
+    "BlockchainDescriptor": {
+      "ChainId": 61,
+      "ChainName": "Ethereum Classic Mainnet",
+      "BlockchainName": "Ethereum Classic",
+      "BlockchainSlug": "etc",
+      "BlockExplorerUrls": [
+        "https://blockscout.com/etc/mainnet"
+      ],
+      "RPCUrls": [
+        "https://www.ethercluster.com/etc",
+        "https://besu-at.etc-network.info",
+        "https://etc.rivet.link",
+        "https://etc.etcdesktop.com",
+        "https://etc.mytokenpocket.vip"
+      ],
+      "IsEVMCompatible": true,
+      "SBTContractAddresses": null
+    }
+  }
+}

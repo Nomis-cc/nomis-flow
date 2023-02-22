@@ -1,0 +1,25 @@
+{
+  "ArbiscanSettings": {
+    "ApiKey": "6U39GFQMP71X4E68VS1D9EE1M4P1MM5UFK",
+    "ApiBaseUrl": "https://api.arbiscan.io/",
+    "BlockchainDescriptor": {
+      "ChainId": 42161,
+      "ChainName": "Arbitrum One",
+      "BlockchainName": "Arbitrum One",
+      "BlockchainSlug": "arbitrum-one",
+      "BlockExplorerUrls": [
+        "https://arbiscan.io/"
+      ],
+      "RPCUrls": [
+        "https://endpoints.omniatech.io/v1/arbitrum/one/public",
+        "https://rpc.ankr.com/arbitrum",
+        "https://arbitrum.blockpi.network/v1/rpc/public",
+        "https://endpoints.omniatech.io/v1/arbitrum/one/public"
+      ],
+      "IsEVMCompatible": true,
+      "SBTContractAddresses": {
+        "Finance": "0x6B435e82bFb27F9308Ad6E67dbecA06828372627"
+      }
+    }
+  }
+}

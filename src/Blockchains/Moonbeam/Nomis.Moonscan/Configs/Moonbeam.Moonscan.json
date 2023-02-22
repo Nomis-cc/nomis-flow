@@ -1,0 +1,25 @@
+{
+  "MoonscanSettings": {
+    "ApiKey": "41EI4EB199SQM2ZVUHVPPFNB179EDI3YVV",
+    "ApiBaseUrl": "https://api-moonbeam.moonscan.io/",
+    "BlockchainDescriptor": {
+      "ChainId": 1284,
+      "ChainName": "Moonbeam",
+      "BlockchainName": "Moonbeam",
+      "BlockchainSlug": "moonbeam",
+      "BlockExplorerUrls": [
+        "https://moonbeam.moonscan.io/"
+      ],
+      "RPCUrls": [
+        "https://rpc.api.moonbeam.network",
+        "https://moonbeam.public.blastapi.io",
+        "https://rpc.ankr.com/moonbeam",
+        "https://1rpc.io/glmr"
+      ],
+      "IsEVMCompatible": true,
+      "SBTContractAddresses": {
+        "Finance": "0x71D724EaF572Cf1bc3b1d0871D3D912B2597De58"
+      }
+    }
+  }
+}

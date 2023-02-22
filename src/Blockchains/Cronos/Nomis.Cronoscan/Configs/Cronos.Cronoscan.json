@@ -1,0 +1,21 @@
+{
+  "CronoscanSettings": {
+    "ApiKey": "EK61ZBIEKJTD63PKZMSIXZ1MSI93641FNK",
+    "ApiBaseUrl": "https://api.cronoscan.com/",
+    "BlockchainDescriptor": {
+      "ChainId": 25,
+      "ChainName": "Cronos Mainnet Beta",
+      "BlockchainName": "Cronos",
+      "BlockchainSlug": "cronos",
+      "BlockExplorerUrls": [
+        "https://cronoscan.com/"
+      ],
+      "RPCUrls": [
+        "https://evm.cronos.org",
+        "https://node.croswap.com/rpc"
+      ],
+      "IsEVMCompatible": true,
+      "SBTContractAddresses": null
+    }
+  }
+}

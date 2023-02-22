@@ -1,0 +1,19 @@
+{
+  "TonscanSettings": {
+    "ApiKey": "eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsidW5jaGFzZSJdLCJleHAiOjE4MTc2MzgwNDUsImlzcyI6IkB0b25hcGlfYm90IiwianRpIjoiQ0RFN1hFQTZDTUVFSlRMWERWVlQ3V05aIiwic2NvcGUiOiJzZXJ2ZXIiLCJzdWIiOiJ0b25hcGkifQ.iebrYg3mFOcERRRKTF4H3RMDxnCepRK5n6S5_1mvxotDGktF2shpEfIXskswUL361Kip1SiKoQT-9Hy21bAwAQ",
+    "ApiBaseUrl": "https://tonapi.io",
+    "GraphQlApiBaseUrl": "https://api.getgems.io/graphql",
+    "BlockchainDescriptor": {
+      "ChainId": 111119,
+      "ChainName": "TON",
+      "BlockchainName": "TON",
+      "BlockchainSlug": "ton",
+      "BlockExplorerUrls": [
+        "https://tonscan.org/"
+      ],
+      "RPCUrls": null,
+      "IsEVMCompatible": false,
+      "SBTContractAddresses": null
+    }
+  }
+}

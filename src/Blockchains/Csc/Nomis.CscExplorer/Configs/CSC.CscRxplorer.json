@@ -1,0 +1,24 @@
+{
+  "CscExplorerSettings": {
+    "ApiBaseUrl": "http://www.coinex.net/",
+    "ApiKey": "6342d69836aa1e6b6a9f4503",
+    "BlockchainDescriptor": {
+      "ChainId": 52,
+      "ChainName": "CoinEx Smart Chain Mainnet",
+      "BlockchainName": "CSC",
+      "BlockchainSlug": "csc",
+      "BlockExplorerUrls": [
+        "https://www.coinex.net/"
+      ],
+      "RPCUrls": [
+        "https://rpc.coinex.net",
+        "https://rpc1.coinex.net",
+        "https://rpc2.coinex.net",
+        "https://rpc3.coinex.net",
+        "https://rpc4.coinex.net"
+      ],
+      "IsEVMCompatible": true,
+      "SBTContractAddresses": null
+    }
+  }
+}

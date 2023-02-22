@@ -1,0 +1,20 @@
+{
+  "RskExplorerSettings": {
+    "ApiBaseUrl": "https://blockscout.com/rsk/mainnet/",
+    "BlockchainDescriptor": {
+      "ChainId": 30,
+      "ChainName": "RSK Mainnet",
+      "BlockchainName": "RSK",
+      "BlockchainSlug": "rsk",
+      "BlockExplorerUrls": [
+        "https://blockscout.com/rsk/mainnet/"
+      ],
+      "RPCUrls": [
+        "https://mycrypto.rsk.co",
+        "https://public-node.rsk.co"
+      ],
+      "IsEVMCompatible": true,
+      "SBTContractAddresses": null
+    }
+  }
+}

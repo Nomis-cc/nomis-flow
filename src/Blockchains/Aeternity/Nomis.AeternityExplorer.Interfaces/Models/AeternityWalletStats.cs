@@ -1,0 +1,122 @@
+﻿// ------------------------------------------------------------------------------------------------------
+// <copyright file="AeternityWalletStats.cs" company="Nomis">
+// Copyright (c) Nomis, 2023. All rights reserved.
+// The Application under the MIT license. See LICENSE file in the solution root for full license information.
+// </copyright>
+// ------------------------------------------------------------------------------------------------------
+
+using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
+
+using Nomis.Blockchain.Abstractions.Models;
+using Nomis.Blockchain.Abstractions.Stats;
+
+namespace Nomis.AeternityExplorer.Interfaces.Models
+{
+    /// <summary>
+    /// Aeternity wallet stats.
+    /// </summary>
+    public sealed class AeternityWalletStats :
+        IWalletCommonStats<AeternityTransactionIntervalData>,
+        IWalletNativeBalanceStats,
+        IWalletTransactionStats,
+        IWalletNftStats,
+        IWalletTokenStats,
+        IWalletContractStats
+    {
+        /// <inheritdoc/>
+        public bool NoData { get; init; }
+
+        /// <inheritdoc/>
+        public string NativeToken => "AE";
+
+        /// <inheritdoc/>
+        [Display(Description = "Amount of deployed smart-contracts", GroupName = "number")]
+        public int DeployedContracts { get; init; }
+
+        /// <inheritdoc/>
+        [Display(Description = "Wallet native token balance", GroupName = "Native token")]
+        public decimal NativeBalance { get; init; }
+
+        /// <inheritdoc/>
+        [Display(Description = "Wallet native token balance", GroupName = "USD")]
+        public decimal NativeBalanceUSD { get; init; }
+
+        /// <inheritdoc/>
+        [Display(Description = "Wallet age", GroupName = "months")]
+        public int WalletAge { get; init; }
+
+        /// <inheritdoc/>
+        [Display(Description = "Total transactions on wallet", GroupName = "number")]
+        public int TotalTransactions { get; init; }
+
+        /// <inheritdoc/>
+        [Display(Description = "Total rejected transactions on wallet", GroupName = "number")]
+        public int TotalRejectedTransactions { get; init; }
+
+        /// <inheritdoc/>
+        [Display(Description = "Average time interval between transactions", GroupName = "hours")]
+        public double AverageTransactionTime { get; init; }
+
+        /// <inheritdoc/>
+        [Display(Description = "Maximum time interval between transactions", GroupName = "hours")]
+        public double MaxTransactionTime { get; init; }
+
+        /// <inheritdoc/>
+        [Display(Description = "Minimal time interval between transactions", GroupName = "hours")]
+        public double MinTransactionTime { get; init; }
+
+        /// <inheritdoc/>
+        [Display(Description = "The movement of funds on the wallet", GroupName = "Native token")]
+        public decimal WalletTurnover { get; init; }
+
+        /// <inheritdoc/>
+        public IEnumerable<AeternityTransactionIntervalData>? TurnoverIntervals { get; init; }
+
+        /// <inheritdoc/>
+        [Display(Description = "The balance change value in the last month", GroupName = "Native token")]
+        public decimal BalanceChangeInLastMonth { get; init; }
+
+        /// <inheritdoc/>
+        [Display(Description = "The balance change value in the last year", GroupName = "Native token")]
+        public decimal BalanceChangeInLastYear { get; init; }
+
+        /// <inheritdoc/>
+        [Display(Description = "Total NFTs on wallet", GroupName = "number")]
+        public int NftHolding { get; init; }
+
+        /// <inheritdoc/>
+        [Display(Description = "Time since last transaction", GroupName = "months")]
+        public int TimeFromLastTransaction { get; init; }
+
+        /// <inheritdoc/>
+        [Display(Description = "NFT trading activity", GroupName = "Native token")]
+        public decimal NftTrading { get; init; }
+
+        /// <inheritdoc/>
+        [Display(Description = "NFT worth on wallet", GroupName = "Native token")]
+        public decimal NftWorth { get; init; }
+
+        /// <inheritdoc/>
+        [Display(Description = "Last month transactions", GroupName = "number")]
+        public int LastMonthTransactions { get; init; }
+
+        /// <inheritdoc/>
+        [Display(Description = "Last year transactions on wallet", GroupName = "number")]
+        public int LastYearTransactions { get; init; }
+
+        /// <inheritdoc/>
+        [Display(Description = "Average transaction per months", GroupName = "number")]
+        public double TransactionsPerMonth => WalletAge != 0 ? (double)TotalTransactions / WalletAge : 0;
+
+        /// <inheritdoc/>
+        [Display(Description = "Value of all holding tokens", GroupName = "number")]
+        public int TokensHolding { get; init; }
+
+        /// <inheritdoc/>
+        public IDictionary<string, PropertyData> StatsDescriptions => GetType()
+            .GetProperties()
+            .Where(prop => !IWalletCommonStats<AeternityTransactionIntervalData>.ExcludedStatDescriptions.Contains(prop.Name) && Attribute.IsDefined(prop, typeof(DisplayAttribute)) && !Attribute.IsDefined(prop, typeof(JsonIgnoreAttribute)))
+            .ToDictionary(p => p.Name, p => new PropertyData(p, NativeToken));
+    }
+}

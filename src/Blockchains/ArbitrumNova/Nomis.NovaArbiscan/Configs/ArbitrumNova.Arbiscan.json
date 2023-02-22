@@ -1,0 +1,22 @@
+{
+  "NovaArbiscanSettings": {
+    "ApiKey": "2TRFSEQI5HRUI16VFII1S2ISZQNCSR3RRB",
+    "ApiBaseUrl": "https://api-nova.arbiscan.io/",
+    "BlockchainDescriptor": {
+      "ChainId": 42170,
+      "ChainName": "Arbitrum Nova",
+      "BlockchainName": "Arbitrum Nova",
+      "BlockchainSlug": "arbitrum-nova",
+      "BlockExplorerUrls": [
+        "https://nova.arbiscan.io/"
+      ],
+      "RPCUrls": [
+        "https://nova.arbitrum.io/rpc"
+      ],
+      "IsEVMCompatible": true,
+      "SBTContractAddresses": {
+        "Finance": "0x948a02ABB83ED54D8908F6725d2a9cEE6B6B582a"
+      }
+    }
+  }
+}

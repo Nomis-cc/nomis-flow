@@ -1,0 +1,19 @@
+{
+  "PoaExplorerSettings": {
+    "ApiBaseUrl": "https://blockscout.com/poa/core/",
+    "BlockchainDescriptor": {
+      "ChainId": 99,
+      "ChainName": "POA Network Core",
+      "BlockchainName": "POA",
+      "BlockchainSlug": "poa",
+      "BlockExplorerUrls": [
+        "https://blockscout.com/poa/core/"
+      ],
+      "RPCUrls": [
+        "https://core.poa.network"
+      ],
+      "IsEVMCompatible": true,
+      "SBTContractAddresses": null
+    }
+  }
+}

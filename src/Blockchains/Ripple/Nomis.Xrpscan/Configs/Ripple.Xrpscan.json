@@ -1,0 +1,20 @@
+{
+  "XrpscanSettings": {
+    "ApiBaseUrl": "https://api.xrpscan.com/",
+    "BlockchainDescriptor": {
+      "ChainId": 111114,
+      "ChainName": "Ripple",
+      "BlockchainName": "Ripple",
+      "BlockchainSlug": "ripple",
+      "BlockExplorerUrls": [
+        "https://xrpscan.com/",
+        "https://blockchair.com/ripple",
+        "https://bithomp.com/explorer/",
+        ""
+      ],
+      "RPCUrls": null,
+      "IsEVMCompatible": false,
+      "SBTContractAddresses": null
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "AstarExplorerSettings": {
+    "ApiBaseUrl": "https://blockscout.com/astar/",
+    "BlockchainDescriptor": {
+      "ChainId": 592,
+      "ChainName": "Astar",
+      "BlockchainName": "Astar",
+      "BlockchainSlug": "astar",
+      "BlockExplorerUrls": [
+        "https://blockscout.com/astar/"
+      ],
+      "RPCUrls": [
+        "https://1rpc.io/astr",
+        "https://evm.astar.network",
+        "https://astar.public.blastapi.io"
+      ],
+      "IsEVMCompatible": true,
+      "SBTContractAddresses": null
+    }
+  }
+}

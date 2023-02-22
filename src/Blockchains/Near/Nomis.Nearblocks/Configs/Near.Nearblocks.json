@@ -1,0 +1,28 @@
+{
+  "NearblocksSettings": {
+    "ApiBaseUrl": "https://api2.nearblocks.io/v1/graphql",
+    "RestApiBaseUrl": "https://nearblocks.io",
+    "BlockchainDescriptor": {
+      "ChainId": 111116,
+      "ChainName": "NEAR Protocol",
+      "BlockchainName": "Near",
+      "BlockchainSlug": "near",
+      "BlockExplorerUrls": [
+        "https://nearblocks.io/",
+        "https://explorer.near.org/",
+        "https://nearscan.org/"
+      ],
+      "RPCUrls": [
+        "https://rpc.mainnet.near.org",
+        "https://rpc.ankr.com/near",
+        "https://near-mainnet.api.pagoda.co/rpc/v1",
+        "https://near-mainnet.infura.io/v3/",
+        "https://public-rpc.blockpi.io/http/near",
+        "https://getblock.io/nodes/near/",
+        "https://endpoints.omniatech.io/v1/near/mainnet/public"
+      ],
+      "IsEVMCompatible": false,
+      "SBTContractAddresses": null
+    }
+  }
+}

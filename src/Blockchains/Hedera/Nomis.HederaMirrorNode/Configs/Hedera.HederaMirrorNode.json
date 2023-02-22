@@ -1,0 +1,17 @@
+{
+  "HederaMirrorNodeSettings": {
+    "ApiBaseUrl": "https://mainnet-public.mirrornode.hedera.com/",
+    "BlockchainDescriptor": {
+      "ChainId": 111113,
+      "ChainName": "Hedera networks",
+      "BlockchainName": "Hedera",
+      "BlockchainSlug": "hedera",
+      "BlockExplorerUrls": [
+        "https://hederaexplorer.io/"
+      ],
+      "RPCUrls": null,
+      "IsEVMCompatible": false,
+      "SBTContractAddresses": null
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "AptoslabsExplorerSettings": {
+    "ApiBaseUrl": "https://indexer.mainnet.aptoslabs.com/v1/graphql",
+    "BlockchainDescriptor": {
+      "ChainId": 111117,
+      "ChainName": "Aptos",
+      "BlockchainName": "Aptos",
+      "BlockchainSlug": "aptos",
+      "BlockExplorerUrls": [
+        "https://explorer.aptoslabs.com/"
+      ],
+      "RPCUrls": [
+        "https://rpc.ankr.com/http/aptos/v1"
+      ],
+      "IsEVMCompatible": false,
+      "SBTContractAddresses": null
+    }
+  }
+}

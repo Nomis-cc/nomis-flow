@@ -1,0 +1,20 @@
+{
+  "KaruraExplorerSettings": {
+    "ApiBaseUrl": "https://blockscout.karura.network/",
+    "BlockchainDescriptor": {
+      "ChainId": 686,
+      "ChainName": "Karura Network",
+      "BlockchainName": "Karura",
+      "BlockchainSlug": "karura",
+      "BlockExplorerUrls": [
+        "https://blockscout.karura.network/"
+      ],
+      "RPCUrls": [
+        "https://eth-rpc-karura.aca-api.network",
+        "https://rpc.evm.karura.network"
+      ],
+      "IsEVMCompatible": true,
+      "SBTContractAddresses": null
+    }
+  }
+}

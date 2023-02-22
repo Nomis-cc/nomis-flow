@@ -1,0 +1,20 @@
+{
+  "ShidenExplorerSettings": {
+    "ApiBaseUrl": "https://blockscout.com/shiden/",
+    "BlockchainDescriptor": {
+      "ChainId": 336,
+      "ChainName": "Shiden",
+      "BlockchainName": "Shiden",
+      "BlockchainSlug": "shiden",
+      "BlockExplorerUrls": [
+        "https://blockscout.com/shiden/"
+      ],
+      "RPCUrls": [
+        "https://shiden.public.blastapi.io",
+        "https://shiden.api.onfinality.io/public"
+      ],
+      "IsEVMCompatible": true,
+      "SBTContractAddresses": null
+    }
+  }
+}

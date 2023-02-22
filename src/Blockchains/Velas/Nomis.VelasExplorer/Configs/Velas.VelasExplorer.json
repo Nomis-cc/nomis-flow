@@ -1,0 +1,20 @@
+{
+  "VelasExplorerSettings": {
+    "ApiBaseUrl": "https://evmexplorer.velas.com/",
+    "BlockchainDescriptor": {
+      "ChainId": 106,
+      "ChainName": "Velas EVM Mainnet",
+      "BlockchainName": "Velas",
+      "BlockchainSlug": "velas",
+      "BlockExplorerUrls": [
+        "https://evmexplorer.velas.com/"
+      ],
+      "RPCUrls": [
+        "https://evmexplorer.velas.com/rpc",
+        "https://explorer.velas.com/rpc"
+      ],
+      "IsEVMCompatible": true,
+      "SBTContractAddresses": null
+    }
+  }
+}

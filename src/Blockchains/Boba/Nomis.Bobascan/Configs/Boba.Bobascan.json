@@ -1,0 +1,21 @@
+{
+  "BobascanSettings": {
+    "ApiKey": "N3GFYC82UDSTQMBW1J1EHYQSV7U965GFIB",
+    "ApiBaseUrl": "https://api.bobascan.com/",
+    "BlockchainDescriptor": {
+      "ChainId": 288,
+      "ChainName": "Boba Network",
+      "BlockchainName": "Boba",
+      "BlockchainSlug": "boba",
+      "BlockExplorerUrls": [
+        "https://bobascan.com/"
+      ],
+      "RPCUrls": [
+        "https://mainnet.boba.network",
+        "https://lightning-replica.boba.network"
+      ],
+      "IsEVMCompatible": true,
+      "SBTContractAddresses": null
+    }
+  }
+}

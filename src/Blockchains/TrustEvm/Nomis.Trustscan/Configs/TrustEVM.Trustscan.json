@@ -1,0 +1,21 @@
+{
+  "TrustscanSettings": {
+    "ApiBaseUrl": "https://trustscan.one/",
+    "BlockchainDescriptor": {
+      "ChainId": 15555,
+      "ChainName": "Trust EVM Testnet",
+      "BlockchainName": "Trust EVM Testnet",
+      "BlockchainSlug": "trust-evm-testnet",
+      "BlockExplorerUrls": [
+        "https://trustscan.one/"
+      ],
+      "RPCUrls": [
+        "https://api.testnet-dev.trust.one"
+      ],
+      "IsEVMCompatible": true,
+      "SBTContractAddresses": {
+        "Finance": "0x270236c25D28A2cd85eD9A1EF0b31835fB9E4Ff6"
+      }
+    }
+  }
+}

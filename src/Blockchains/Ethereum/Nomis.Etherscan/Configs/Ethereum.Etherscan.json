@@ -1,0 +1,32 @@
+{
+  "EtherscanSettings": {
+    "ApiKey": "XSSGTSDUUWY49UVZREPN7VSZ842WWRFYQD",
+    "BlockchainProviderUrl": "https://eth-mainnet.alchemyapi.io/v2/yindO_Z3YZ0ncbtpJmNG7WQfHO2RPcF4",
+    "BlockchainDescriptor": {
+      "ChainId": 1,
+      "ChainName": "Ethereum Mainnet",
+      "BlockchainName": "Ethereum",
+      "BlockchainSlug": "ethereum",
+      "BlockExplorerUrls": [
+        "https://etherscan.io/"
+      ],
+      "RPCUrls": [
+        "https://eth.llamarpc.com",
+        "https://rpc.builder0x69.io",
+        "https://eth-rpc.gateway.pokt.network",
+        "https://eth-mainnet.public.blastapi.io",
+        "https://ethereum.blockpi.network/v1/rpc/public",
+        "https://rpc.ankr.com/eth",
+        "https://rpc.payload.de",
+        "https://endpoints.omniatech.io/v1/eth/mainnet/public",
+        "https://rpc.flashbots.net",
+        "https://1rpc.io/eth",
+        "https://rpc.ankr.com/eth"
+      ],
+      "IsEVMCompatible": true,
+      "SBTContractAddresses": {
+        "Finance": "0xbdd3c683af98bbfb3c8c30aac97c9a5119c8cd9f"
+      }
+    }
+  }
+}

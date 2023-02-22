@@ -1,0 +1,20 @@
+{
+  "SolscanSettings": {
+    "ApiBaseUrl": "https://public-api.solscan.io/",
+    "BlockchainDescriptor": {
+      "ChainId": 111111,
+      "ChainName": "Solana",
+      "BlockchainName": "Solana",
+      "BlockchainSlug": "solana",
+      "BlockExplorerUrls": [
+        "https://solscan.io/"
+      ],
+      "RPCUrls": [
+        "https://api.mainnet-beta.solana.com",
+        "https://rpc.ankr.com/solana"
+      ],
+      "IsEVMCompatible": false,
+      "SBTContractAddresses": null
+    }
+  }
+}

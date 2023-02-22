@@ -1,0 +1,17 @@
+{
+  "AeternityExplorerSettings": {
+    "ApiBaseUrl": "https://mainnet.aeternity.io/",
+    "BlockchainDescriptor": {
+      "ChainId": 111112,
+      "ChainName": "Æternity",
+      "BlockchainName": "Aeternity",
+      "BlockchainSlug": "aeternity",
+      "BlockExplorerUrls": [
+        "https://explorer.aeternity.io/"
+      ],
+      "RPCUrls": null,
+      "IsEVMCompatible": false,
+      "SBTContractAddresses": null
+    }
+  }
+}

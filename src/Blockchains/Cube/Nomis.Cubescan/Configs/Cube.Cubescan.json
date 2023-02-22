@@ -1,0 +1,22 @@
+{
+  "CubescanSettings": {
+    "ApiKey": "",
+    "ApiBaseUrl": "https://openapi.cubescan.network/",
+    "BlockchainDescriptor": {
+      "ChainId": 1818,
+      "ChainName": "Cube Chain Mainnet",
+      "BlockchainName": "Cube",
+      "BlockchainSlug": "cube",
+      "BlockExplorerUrls": [
+        "https://www.cubescan.network/en-us/"
+      ],
+      "RPCUrls": [
+        "https://http-mainnet-sg.cube.network",
+        "https://http-mainnet.cube.network",
+        "https://http-mainnet-us.cube.network"
+      ],
+      "IsEVMCompatible": true,
+      "SBTContractAddresses": null
+    }
+  }
+}

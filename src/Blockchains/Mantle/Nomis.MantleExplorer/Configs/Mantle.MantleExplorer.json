@@ -1,0 +1,21 @@
+{
+  "MantleExplorerSettings": {
+    "ApiBaseUrl": "https://explorer.testnet.mantle.xyz/",
+    "BlockchainDescriptor": {
+      "ChainId": 5001,
+      "ChainName": "Mantle Testnet",
+      "BlockchainName": "Mantle Testnet",
+      "BlockchainSlug": "mantle-testnet",
+      "BlockExplorerUrls": [
+        "https://explorer.testnet.mantle.xyz/"
+      ],
+      "RPCUrls": [
+        "https://rpc.testnet.mantle.xyz"
+      ],
+      "IsEVMCompatible": true,
+      "SBTContractAddresses": {
+        "Finance": "0xc3a9766e07754cC1894E5c0A2459d23A676dDD0D"
+      }
+    }
+  }
+}

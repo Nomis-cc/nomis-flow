@@ -1,0 +1,20 @@
+{
+  "FuseExplorerSettings": {
+    "ApiKey": "2ffa31bd-2f4e-403f-8ad6-d5831260c81e",
+    "ApiBaseUrl": "https://explorer.fuse.io/",
+    "BlockchainDescriptor": {
+      "ChainId": 122,
+      "ChainName": "Fuse Mainnet",
+      "BlockchainName": "Fuse",
+      "BlockchainSlug": "fuse",
+      "BlockExplorerUrls": [
+        "https://explorer.fuse.io/"
+      ],
+      "RPCUrls": [
+        "https://fuse-mainnet.chainstacklabs.com"
+      ],
+      "IsEVMCompatible": true,
+      "SBTContractAddresses": null
+    }
+  }
+}
