@@ -68,7 +68,7 @@ namespace Nomis.Utils.Exceptions
         /// Error message list.
         /// </summary>
         // ReSharper disable once MemberInitializerValueIgnored
-        public IList<string>? ErrorMessages { get; init; }
+        public IList<string>? ErrorMessages { get; set; }
 
         /// <summary>
         /// Http status code.

@@ -21,5 +21,15 @@ namespace Nomis.Blockchain.Abstractions.Contracts
         /// Time range in hours on either side to find price data for token balances.
         /// </summary>
         public int SearchWidthInHours { get; set; }
-    }
+
+        /// <summary>
+        /// Use token lists for getting tokens data.
+        /// </summary>
+        public bool UseTokenLists { get; set; }
+
+        /// <summary>
+        /// Include universal token lists.
+        /// </summary>
+        public bool IncludeUniversalTokenLists { get; set; }
+}
 }

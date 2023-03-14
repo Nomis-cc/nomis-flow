@@ -105,11 +105,11 @@ export default function MintScore(props) {
   const [loading, setLoading] = React.useState(true);
 
   async function fetchMyScore(address, blockchain, apiHost) {
-    if (address === ""){
+    if (address === "") {
       return;
     }
     var switchResult = await tryToSwitchChain();
-    if (switchResult){
+    if (switchResult) {
       const nonce = parseInt(await contract.getNonce(), 16);
       console.log("nonce: ", nonce);
       const blockNumber = await provider.getBlockNumber();
@@ -121,23 +121,23 @@ export default function MintScore(props) {
       setDeadlineValue(deadline);
       await fetch(
         isTokenScore
-          ? `${apiHost}/api/v1/${blockchain}/wallet/${address}/score?Nonce=${nonce}&Deadline=${deadline}&ScoreType=1&TokenAddress=${props.ecoTokenAddress}`
-          : `${apiHost}/api/v1/${blockchain}/wallet/${address}/score?Nonce=${nonce}&Deadline=${deadline}&ScoreType=0`
+          ? `${apiHost}/api/v1/${blockchain}/wallet/${address}/score?Nonce=${nonce}&Deadline=${deadline}&ScoreType=1&TokenAddress=${props.ecoTokenAddress}&UseTokenLists=false&GetHoldTokensBalances=true&GetCyberConnectProtocolData=true`
+          : `${apiHost}/api/v1/${blockchain}/wallet/${address}/score?Nonce=${nonce}&Deadline=${deadline}&ScoreType=0&UseTokenLists=false&GetHoldTokensBalances=true&GetCyberConnectProtocolData=true`
       )
-      .then((res) => res.json())
-      .then(
-        (result) => {
-          setScoreValue(result.data.mintedScore);
-          console.log("mintedScore: ", result.data.mintedScore);
-          setSignatureValue(result.data.signature);
-          console.log("signature: ", result.data.signature);
-          setNoData(result.data.stats.noData);
-        },
-        (error) => {
-          console.error(error);
-        }
-      )
-      .finally(() => setLoading(false));
+        .then((res) => res.json())
+        .then(
+          (result) => {
+            setScoreValue(result.data.mintedScore);
+            console.log("mintedScore: ", result.data.mintedScore);
+            setSignatureValue(result.data.signature);
+            console.log("signature: ", result.data.signature);
+            setNoData(result.data.stats.noData);
+          },
+          (error) => {
+            console.error(error);
+          }
+        )
+        .finally(() => setLoading(false));
     }
   }
 
@@ -185,13 +185,14 @@ export default function MintScore(props) {
                   gasLimit: 315750,
                 })
                 .catch(console.error)
-            : currentBlockchain === "celo" && isTokenScore ? await contract.setScore(
+            : currentBlockchain === "celo" && isTokenScore
+            ? await contract.setScore(
                 signatureValue,
                 scoreValue,
                 deadlineValue,
                 { gasLimit: 19000000 }
               )
-              : await contract.setScore(
+            : await contract.setScore(
                 signatureValue,
                 scoreValue,
                 deadlineValue
@@ -248,7 +249,9 @@ export default function MintScore(props) {
 
   const handleOpen = async () => {
     setIsOpen(true);
-    fetchMyScore(addressValue, currentBlockchain, API_HOST).catch(console.error);
+    fetchMyScore(addressValue, currentBlockchain, API_HOST).catch(
+      console.error
+    );
     setTimeout(() => setIsVisible(true), 200);
   };
 
@@ -394,7 +397,9 @@ export default function MintScore(props) {
                 <h4>Connected Wallet Address</h4>
                 <p className="address">{addressValue}</p>
               </div>
-              <Score wallet={{ score: scoreValue / 10000, stats: { noData: false } }} />
+              <Score
+                wallet={{ score: scoreValue / 10000, stats: { noData: false } }}
+              />
 
               <div className="token">
                 <h4>My Nomis Token on {props.blockchain}</h4>

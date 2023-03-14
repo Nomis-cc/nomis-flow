@@ -22,4 +22,8 @@
     </Content>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Nomis.Tatum.Interfaces\Nomis.Tatum.Interfaces.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -7,6 +7,8 @@
 
 using System.Text.Json.Serialization;
 
+using Nomis.Blockchain.Abstractions.Contracts;
+
 namespace Nomis.Dex.Abstractions.Contracts
 {
     /// <inheritdoc cref="ISwapPairData"/>

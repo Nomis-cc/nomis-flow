@@ -8,10 +8,11 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-using Nomis.Blockchain.Abstractions.Models;
 using Nomis.Blockchain.Abstractions.Stats;
 using Nomis.DefiLlama.Interfaces.Models;
 using Nomis.DefiLlama.Interfaces.Stats;
+using Nomis.Utils.Contracts;
+using Nomis.Utils.Contracts.Stats;
 
 namespace Nomis.Flowscan.Interfaces.Models
 {
@@ -28,22 +29,22 @@ namespace Nomis.Flowscan.Interfaces.Models
         IWalletContractStats
     {
         /// <inheritdoc/>
-        public bool NoData { get; init; }
+        public bool NoData { get; set; }
 
         /// <inheritdoc/>
         public string NativeToken => "Flow";
 
         /// <inheritdoc/>
         [Display(Description = "Amount of deployed smart-contracts", GroupName = "number")]
-        public int DeployedContracts { get; init; }
+        public int DeployedContracts { get; set; }
 
         /// <inheritdoc/>
         [Display(Description = "Wallet native token balance", GroupName = "Native token")]
-        public decimal NativeBalance { get; init; }
+        public decimal NativeBalance { get; set; }
 
         /// <inheritdoc/>
         [Display(Description = "Wallet native token balance", GroupName = "USD")]
-        public decimal NativeBalanceUSD { get; init; }
+        public decimal NativeBalanceUSD { get; set; }
 
         /// <inheritdoc/>
         [Display(Description = "Wallet hold tokens total balance", GroupName = "USD")]
@@ -51,66 +52,66 @@ namespace Nomis.Flowscan.Interfaces.Models
 
         /// <inheritdoc/>
         [Display(Description = "Wallet age", GroupName = "months")]
-        public int WalletAge { get; init; }
+        public int WalletAge { get; set; }
 
         /// <inheritdoc/>
         [Display(Description = "Total transactions on wallet", GroupName = "number")]
-        public int TotalTransactions { get; init; }
+        public int TotalTransactions { get; set; }
 
         /// <inheritdoc/>
         [Display(Description = "Total rejected transactions on wallet", GroupName = "number")]
-        public int TotalRejectedTransactions { get; init; }
+        public int TotalRejectedTransactions { get; set; }
 
         /// <inheritdoc/>
         [Display(Description = "Average time interval between transactions", GroupName = "hours")]
-        public double AverageTransactionTime { get; init; }
+        public double AverageTransactionTime { get; set; }
 
         /// <inheritdoc/>
         [Display(Description = "Maximum time interval between transactions", GroupName = "hours")]
-        public double MaxTransactionTime { get; init; }
+        public double MaxTransactionTime { get; set; }
 
         /// <inheritdoc/>
         [Display(Description = "Minimal time interval between transactions", GroupName = "hours")]
-        public double MinTransactionTime { get; init; }
+        public double MinTransactionTime { get; set; }
 
         /// <inheritdoc/>
         [Display(Description = "The movement of funds on the wallet", GroupName = "Native token")]
-        public decimal WalletTurnover { get; init; }
+        public decimal WalletTurnover { get; set; }
 
         /// <inheritdoc/>
-        public IEnumerable<FlowTransactionIntervalData>? TurnoverIntervals { get; init; }
+        public IEnumerable<FlowTransactionIntervalData>? TurnoverIntervals { get; set; }
 
         /// <inheritdoc/>
         [Display(Description = "The balance change value in the last month", GroupName = "Native token")]
-        public decimal BalanceChangeInLastMonth { get; init; }
+        public decimal BalanceChangeInLastMonth { get; set; }
 
         /// <inheritdoc/>
         [Display(Description = "The balance change value in the last year", GroupName = "Native token")]
-        public decimal BalanceChangeInLastYear { get; init; }
+        public decimal BalanceChangeInLastYear { get; set; }
 
         /// <inheritdoc/>
         [Display(Description = "Total NFTs on wallet", GroupName = "number")]
-        public int NftHolding { get; init; }
+        public int NftHolding { get; set; }
 
         /// <inheritdoc/>
         [Display(Description = "Time since last transaction", GroupName = "months")]
-        public int TimeFromLastTransaction { get; init; }
+        public int TimeFromLastTransaction { get; set; }
 
         /// <inheritdoc/>
         [Display(Description = "NFT trading activity", GroupName = "Native token")]
-        public decimal NftTrading { get; init; }
+        public decimal NftTrading { get; set; }
 
         /// <inheritdoc/>
         [Display(Description = "NFT worth on wallet", GroupName = "Native token")]
-        public decimal NftWorth { get; init; }
+        public decimal NftWorth { get; set; }
 
         /// <inheritdoc/>
         [Display(Description = "Last month transactions", GroupName = "number")]
-        public int LastMonthTransactions { get; init; }
+        public int LastMonthTransactions { get; set; }
 
         /// <inheritdoc/>
         [Display(Description = "Last year transactions on wallet", GroupName = "number")]
-        public int LastYearTransactions { get; init; }
+        public int LastYearTransactions { get; set; }
 
         /// <inheritdoc/>
         [Display(Description = "Average transaction per months", GroupName = "number")]
@@ -118,12 +119,12 @@ namespace Nomis.Flowscan.Interfaces.Models
 
         /// <inheritdoc/>
         [Display(Description = "Value of all holding tokens", GroupName = "number")]
-        public int TokensHolding { get; init; }
+        public int TokensHolding { get; set; }
 
         /// <inheritdoc/>
         [Display(Description = "Hold tokens balances", GroupName = "collection")]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public IEnumerable<TokenBalanceData>? TokenBalances { get; init; }
+        public IEnumerable<TokenBalanceData>? TokenBalances { get; set; }
 
         /// <inheritdoc/>
         public IDictionary<string, PropertyData> StatsDescriptions => GetType()

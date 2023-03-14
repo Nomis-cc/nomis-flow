@@ -5,9 +5,9 @@
 // </copyright>
 // ------------------------------------------------------------------------------------------------------
 
-using Nomis.Blockchain.Abstractions.Models;
-using Nomis.Blockchain.Abstractions.Requests;
-using Nomis.Blockchain.Abstractions.Stats;
+using Nomis.Utils.Contracts;
+using Nomis.Utils.Contracts.Requests;
+using Nomis.Utils.Contracts.Stats;
 using Nomis.Utils.Wrapper;
 
 namespace Nomis.Blockchain.Abstractions

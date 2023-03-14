@@ -5,9 +5,9 @@
 // </copyright>
 // ------------------------------------------------------------------------------------------------------
 
-using Nomis.Blockchain.Abstractions.Models;
-using Nomis.Blockchain.Abstractions.Stats;
-using Nomis.SoulboundTokenService.Interfaces.Enums;
+using Nomis.Utils.Contracts;
+using Nomis.Utils.Contracts.Stats;
+using Nomis.Utils.Enums;
 
 namespace Nomis.Blockchain.Abstractions
 {
@@ -34,7 +34,7 @@ namespace Nomis.Blockchain.Abstractions
         /// </summary>
         public ushort MintedScore { get; set; }
 
-        /// <inheritdoc cref="SoulboundTokenService.Interfaces.Enums.ScoreType"/>
+        /// <inheritdoc cref="Utils.Enums.ScoreType"/>
         public ScoreType ScoreType { get; }
 
         /// <summary>

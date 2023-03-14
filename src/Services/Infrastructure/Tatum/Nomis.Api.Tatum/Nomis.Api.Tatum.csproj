@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Common\Nomis.Api.Common\Nomis.Api.Common.csproj" />
+    <ProjectReference Include="..\Nomis.Tatum.Interfaces\Nomis.Tatum.Interfaces.csproj" />
   </ItemGroup>
 
   <ItemGroup>

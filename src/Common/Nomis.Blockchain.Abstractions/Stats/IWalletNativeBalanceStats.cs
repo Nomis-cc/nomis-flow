@@ -19,6 +19,23 @@ namespace Nomis.Blockchain.Abstractions.Stats
         private const double WalletTurnoverPercents = 16.31 / 100;
 
         /// <summary>
+        /// Set wallet native token balance stats.
+        /// </summary>
+        /// <typeparam name="TWalletStats">The wallet stats type.</typeparam>
+        /// <param name="stats">The wallet stats.</param>
+        /// <returns>Returns wallet stats with initialized properties.</returns>
+        public new TWalletStats FillStatsTo<TWalletStats>(TWalletStats stats)
+            where TWalletStats : class, IWalletNativeBalanceStats
+        {
+            stats.NativeBalance = NativeBalance;
+            stats.NativeBalanceUSD = NativeBalanceUSD;
+            stats.BalanceChangeInLastMonth = BalanceChangeInLastMonth;
+            stats.BalanceChangeInLastYear = BalanceChangeInLastYear;
+            stats.WalletTurnover = WalletTurnover;
+            return stats;
+        }
+
+        /// <summary>
         /// Native token symbol.
         /// </summary>
         public string NativeToken { get; }
@@ -26,34 +43,34 @@ namespace Nomis.Blockchain.Abstractions.Stats
         /// <summary>
         /// Wallet balance (Native token).
         /// </summary>
-        public decimal NativeBalance { get; init; }
+        public decimal NativeBalance { get; set; }
 
         /// <summary>
         /// Wallet balance (Native token in USD).
         /// </summary>
         // ReSharper disable once InconsistentNaming
-        public decimal NativeBalanceUSD { get; init; }
+        public decimal NativeBalanceUSD { get; set; }
 
         /// <summary>
         /// The balance change value in the last month (Native token).
         /// </summary>
-        public decimal BalanceChangeInLastMonth { get; init; }
+        public decimal BalanceChangeInLastMonth { get; set; }
 
         /// <summary>
         /// The balance change value in the last year (Native token).
         /// </summary>
-        public decimal BalanceChangeInLastYear { get; init; }
+        public decimal BalanceChangeInLastYear { get; set; }
 
         /// <summary>
         /// The movement of funds on the wallet (Native token).
         /// </summary>
-        public decimal WalletTurnover { get; init; }
+        public decimal WalletTurnover { get; set; }
 
         /// <summary>
-        /// Get wallet native token balance stats score.
+        /// Calculate wallet native token balance stats score.
         /// </summary>
         /// <returns>Returns wallet native token balance stats score.</returns>
-        public new double GetScore()
+        public new double CalculateScore()
         {
             double result = BalanceScore(NativeBalance) / 100 * BalancePercents;
             result += WalletTurnoverScore(WalletTurnover) / 100 * WalletTurnoverPercents;

@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Nomis.Api.Common.Swagger.Examples;
 using Nomis.Blockchain.Abstractions;
+using Nomis.Blockchain.Abstractions.Contracts;
+using Nomis.Blockchain.Abstractions.Enums;
 using Nomis.Dex.Abstractions.Contracts;
 using Nomis.Dex.Abstractions.Enums;
 using Nomis.DexProviderService.Interfaces;
@@ -134,6 +136,7 @@ namespace Nomis.Api.DexAggregator
         /// <summary>
         /// Get the list of all supported blockchains.
         /// </summary>
+        /// <param name="type">Blockchain type.</param>
         /// <returns>Returns the list of all supported blockchains.</returns>
         /// <response code="200">Returns the list of all supported blockchains.</response>
         /// <response code="400">Request not valid.</response>
@@ -149,9 +152,10 @@ namespace Nomis.Api.DexAggregator
         [ProducesResponseType(typeof(ErrorResult<string>), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(RateLimitResult), StatusCodes.Status429TooManyRequests)]
         [ProducesResponseType(typeof(ErrorResult<string>), StatusCodes.Status500InternalServerError)]
-        public IActionResult AllBlockchains()
+        public IActionResult AllBlockchains(
+            BlockchainType type = BlockchainType.None)
         {
-            var result = _dexProviderService.Blockchains();
+            var result = _dexProviderService.Blockchains(type);
             return Ok(result);
         }
 

@@ -17,24 +17,37 @@ namespace Nomis.Greysafe.Interfaces.Stats
         IWalletStats
     {
         /// <summary>
-        /// The Greysafe scam reports.
+        /// Set wallet Greysafe scam reporting service stats.
         /// </summary>
-        public IEnumerable<GreysafeReport>? GreysafeReports { get; init; }
+        /// <typeparam name="TWalletStats">The wallet stats type.</typeparam>
+        /// <param name="stats">The wallet stats.</param>
+        /// <returns>Returns wallet stats with initialized properties.</returns>
+        public new TWalletStats FillStatsTo<TWalletStats>(TWalletStats stats)
+            where TWalletStats : class, IWalletGreysafeStats
+        {
+            stats.GreysafeReports = GreysafeReports;
+            return stats;
+        }
 
         /// <summary>
-        /// Get wallet Greysafe stats score.
+        /// The Greysafe scam reports.
+        /// </summary>
+        public IEnumerable<GreysafeReport>? GreysafeReports { get; set; }
+
+        /// <summary>
+        /// Calculate wallet Greysafe stats score.
         /// </summary>
         /// <returns>Returns wallet Greysafe protocol stats score.</returns>
-        public new double GetScore()
+        public new double CalculateScore()
         {
             return 0;
         }
 
         /// <summary>
-        /// Get wallet Greysafe adjusting score multiplier.
+        /// Calculate wallet Greysafe adjusting score multiplier.
         /// </summary>
         /// <returns>Returns wallet Greysafe adjusting score multiplier.</returns>
-        public new double GetAdjustingScoreMultiplier()
+        public new double CalculateAdjustingScoreMultiplier()
         {
             // TODO - add
             return 1;

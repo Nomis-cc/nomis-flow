@@ -16,15 +16,28 @@ namespace Nomis.Blockchain.Abstractions.Stats
         IWalletStats
     {
         /// <summary>
-        /// Amount of deployed smart-contracts.
+        /// Set wallet contract stats.
         /// </summary>
-        public int DeployedContracts { get; init; }
+        /// <typeparam name="TWalletStats">The wallet stats type.</typeparam>
+        /// <param name="stats">The wallet stats.</param>
+        /// <returns>Returns wallet stats with initialized properties.</returns>
+        public new TWalletStats FillStatsTo<TWalletStats>(TWalletStats stats)
+            where TWalletStats : class, IWalletContractStats
+        {
+            stats.DeployedContracts = DeployedContracts;
+            return stats;
+        }
 
         /// <summary>
-        /// Get wallet contract stats score.
+        /// Amount of deployed smart-contracts.
+        /// </summary>
+        public int DeployedContracts { get; set; }
+
+        /// <summary>
+        /// Calculate wallet contract stats score.
         /// </summary>
         /// <returns>Returns wallet contract stats score.</returns>
-        public new double GetScore()
+        public new double CalculateScore()
         {
             // TODO - add calculation
             return 0;

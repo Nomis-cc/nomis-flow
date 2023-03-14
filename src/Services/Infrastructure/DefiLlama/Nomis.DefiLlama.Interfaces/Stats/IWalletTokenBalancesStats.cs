@@ -17,9 +17,22 @@ namespace Nomis.DefiLlama.Interfaces.Stats
         IWalletStats
     {
         /// <summary>
+        /// Set wallet hold token balances stats.
+        /// </summary>
+        /// <typeparam name="TWalletStats">The wallet stats type.</typeparam>
+        /// <param name="stats">The wallet stats.</param>
+        /// <returns>Returns wallet stats with initialized properties.</returns>
+        public new TWalletStats FillStatsTo<TWalletStats>(TWalletStats stats)
+            where TWalletStats : class, IWalletTokenBalancesStats
+        {
+            stats.TokenBalances = TokenBalances;
+            return stats;
+        }
+
+        /// <summary>
         /// Hold token balances.
         /// </summary>
-        public IEnumerable<TokenBalanceData>? TokenBalances { get; init; }
+        public IEnumerable<TokenBalanceData>? TokenBalances { get; set; }
 
         /// <summary>
         /// Wallet hold tokens total balance (USD).
@@ -28,10 +41,10 @@ namespace Nomis.DefiLlama.Interfaces.Stats
         public decimal HoldTokensBalanceUSD { get; }
 
         /// <summary>
-        /// Get wallet DEX token balances stats score.
+        /// Calculate wallet DEX token balances stats score.
         /// </summary>
         /// <returns>Returns DEX token balances stats score.</returns>
-        public new double GetScore()
+        public new double CalculateScore()
         {
             // TODO - add calculation
             return 0;

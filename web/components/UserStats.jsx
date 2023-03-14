@@ -9,13 +9,23 @@ export default function UserStats({ wallet, blockchain, group }) {
     : () => setIsMonth(true);
 
   const [coin, setCoin] = React.useState();
+  const [coinValue, setCoinValue] = React.useState();
   React.useEffect(() => {
     for (let i = 0; i < blockchains.length; i++) {
       if (blockchains[i].slug === blockchain) {
-        if (group === "eco") {
+        let value;
+        if (group === "eco" && wallet.stats.tokenBalance !== undefined) {
           setCoin(wallet.stats.token);
+          value = wallet.stats.tokenBalance;
+          setCoinValue(value > 1000
+            ? Math.round(value / 10) / 100 + "k"
+            : Math.round(value * 100) / 100);
         } else {
           setCoin(blockchains[i].coin);
+          value = wallet.stats.nativeBalance;
+          setCoinValue(value > 1000
+            ? Math.round(value / 10) / 100 + "k"
+            : Math.round(value * 100) / 100);
         }
       }
     }
@@ -28,9 +38,7 @@ export default function UserStats({ wallet, blockchain, group }) {
           <div className="balance">
             <div className="container">
               <span className="units">{coin}</span>
-              {wallet.stats.nativeBalance > 1000
-                ? Math.round(wallet.stats.nativeBalance / 10) / 100 + "k"
-                : Math.round(wallet.stats.nativeBalance * 100) / 100}
+              {coinValue}
             </div>
             {/* <div className="container">
               <span className="units">$</span>

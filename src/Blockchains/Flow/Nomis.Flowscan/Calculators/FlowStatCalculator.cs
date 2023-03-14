@@ -8,10 +8,12 @@
 using System.Numerics;
 
 using Nomis.Blockchain.Abstractions.Calculators;
-using Nomis.Blockchain.Abstractions.Models;
+using Nomis.Blockchain.Abstractions.Stats;
 using Nomis.DefiLlama.Interfaces.Models;
 using Nomis.Flowscan.Interfaces.Extensions;
 using Nomis.Flowscan.Interfaces.Models;
+using Nomis.Utils.Contracts;
+using Nomis.Utils.Contracts.Calculators;
 
 namespace Nomis.Flowscan.Calculators
 {
@@ -19,16 +21,67 @@ namespace Nomis.Flowscan.Calculators
     /// Flow wallet stats calculator.
     /// </summary>
     internal sealed class FlowStatCalculator :
-        IStatCalculator<FlowWalletStats, FlowTransactionIntervalData>
+        IWalletCommonStatsCalculator<FlowWalletStats, FlowTransactionIntervalData>,
+        IWalletNativeBalanceStatsCalculator<FlowWalletStats, FlowTransactionIntervalData>,
+        IWalletTokenBalancesStatsCalculator<FlowWalletStats, FlowTransactionIntervalData>,
+        IWalletTransactionStatsCalculator<FlowWalletStats, FlowTransactionIntervalData>,
+        IWalletTokenStatsCalculator<FlowWalletStats, FlowTransactionIntervalData>,
+        IWalletContractStatsCalculator<FlowWalletStats, FlowTransactionIntervalData>,
+        IWalletNftStatsCalculator<FlowWalletStats, FlowTransactionIntervalData>
     {
         private readonly string _address;
-        private readonly decimal _balance;
-        private readonly decimal _usdBalance;
         private readonly FlowscanAccount _account;
         private readonly IEnumerable<FlowscanTransaction> _transactions;
         private readonly IEnumerable<FlowscanAccountTokenTransferEdgeNode> _transfers;
         private readonly IEnumerable<FlowscanAccountNftTransferEdgeNode> _nftTransfers;
         private readonly IEnumerable<TokenBalanceData>? _tokenBalances;
+
+        /// <inheritdoc />
+        public int WalletAge => _transactions.Any()
+            ? IWalletStatsCalculator.GetWalletAge(_transfers.Select(x => x.Transaction!.Time))
+            : 1;
+
+        /// <inheritdoc />
+        public IList<FlowTransactionIntervalData> TurnoverIntervals
+        {
+            get
+            {
+                var turnoverIntervalsDataList = _transfers
+                    .Select(x => new TurnoverIntervalsData(
+                        x.Transaction!.Time,
+                        new BigInteger(decimal.Parse(x.Amount!.Value ?? "0")),
+                        x.Counterparty?.Address?.Equals(_address, StringComparison.InvariantCultureIgnoreCase) != true));
+                return IWalletStatsCalculator<FlowTransactionIntervalData>
+                    .GetTurnoverIntervals(turnoverIntervalsDataList, _transactions.Any() ? _transfers.Min(x => x.Transaction!.Time) : DateTime.MinValue).ToList();
+            }
+        }
+
+        /// <inheritdoc />
+        public decimal NativeBalance { get; }
+
+        /// <inheritdoc />
+        public decimal NativeBalanceUSD { get; }
+
+        /// <inheritdoc />
+        public decimal BalanceChangeInLastMonth =>
+            IWalletStatsCalculator<FlowTransactionIntervalData>.GetBalanceChangeInLastMonth(TurnoverIntervals);
+
+        /// <inheritdoc />
+        public decimal BalanceChangeInLastYear =>
+            IWalletStatsCalculator<FlowTransactionIntervalData>.GetBalanceChangeInLastYear(TurnoverIntervals);
+
+        /// <inheritdoc />
+        public decimal WalletTurnover =>
+            TurnoverIntervals.Sum(x => Math.Abs((decimal)x.AmountSum)).ToFlow();
+
+        /// <inheritdoc />
+        public IEnumerable<TokenBalanceData>? TokenBalances => _tokenBalances?.Any() == true ? _tokenBalances : null;
+
+        /// <inheritdoc />
+        public int TokensHolding => _account.TokenBalances?.Edges.Count ?? 0;
+
+        /// <inheritdoc />
+        public int DeployedContracts => _account.Contracts.Count;
 
         public FlowStatCalculator(
             string address,
@@ -41,8 +94,8 @@ namespace Nomis.Flowscan.Calculators
             IEnumerable<TokenBalanceData>? tokenBalances)
         {
             _address = address;
-            _balance = balance;
-            _usdBalance = usdBalance;
+            NativeBalance = balance.ToFlow();
+            NativeBalanceUSD = usdBalance;
             _transfers = transfers;
             _account = account;
             _transactions = transactions;
@@ -50,21 +103,28 @@ namespace Nomis.Flowscan.Calculators
             _tokenBalances = tokenBalances;
         }
 
-        public FlowWalletStats GetStats()
+        /// <inheritdoc />
+        public FlowWalletStats Stats()
+        {
+            return (this as IWalletStatsCalculator<FlowWalletStats, FlowTransactionIntervalData>).ApplyCalculators();
+        }
+
+        /// <inheritdoc />
+        IWalletTransactionStats IWalletTransactionStatsCalculator<FlowWalletStats, FlowTransactionIntervalData>.Stats()
         {
             if (!_transfers.Any())
             {
-                return new()
+                return new FlowWalletStats
                 {
                     NoData = true
                 };
             }
 
-            var intervals = IStatCalculator
+            var intervals = IWalletStatsCalculator
                 .GetTransactionsIntervals(_transfers.Select(x => x.Transaction!.Time)).ToList();
             if (intervals.Count == 0)
             {
-                return new()
+                return new FlowWalletStats
                 {
                     NoData = true
                 };
@@ -73,63 +133,49 @@ namespace Nomis.Flowscan.Calculators
             var monthAgo = DateTime.Now.AddMonths(-1);
             var yearAgo = DateTime.Now.AddYears(-1);
 
-            var soldTokens = _nftTransfers
-                .Where(x => x.From?.Address?.Equals(_address, StringComparison.InvariantCultureIgnoreCase) == true)
-                .ToList();
-            var soldSum = IStatCalculator
-                .GetTokensSum(soldTokens.Select(x => x.Transaction?.Hash!), _transfers.Select(x => (x.Transaction?.Hash!, BigInteger.Parse(x.Amount?.Value!))));
-
-            var soldTokensIds = soldTokens.Select(x => x.GetTokenUid());
-            var buyTokens = _nftTransfers
-                .Where(t => t.To?.Address?.Equals(_address, StringComparison.InvariantCultureIgnoreCase) == true && soldTokensIds.Contains(t.GetTokenUid()))
-                .ToList();
-            var buySum = IStatCalculator
-                .GetTokensSum(buyTokens.Select(x => x.Transaction?.Hash!), _transfers.Select(x => (x.Transaction?.Hash!, BigInteger.Parse(x.Amount?.Value!))));
-
-            var buyNotSoldTokens = _nftTransfers
-                .Where(t => t.To?.Address?.Equals(_address, StringComparison.InvariantCultureIgnoreCase) == true && !soldTokensIds.Contains(t.GetTokenUid()))
-                .ToList();
-            var buyNotSoldSum = IStatCalculator
-                .GetTokensSum(buyNotSoldTokens.Select(x => x.Transaction?.Hash!), _transfers.Select(x => (x.Transaction?.Hash!, BigInteger.Parse(x.Amount?.Value!))));
-
-            int holdingTokens = _nftTransfers.Count() - soldTokens.Count;
-            decimal nftWorth = buySum == 0 ? 0 : (decimal)soldSum / (decimal)buySum * (decimal)buyNotSoldSum;
-
-            int contractsCreated = _account.Contracts.Count;
-            int totalTokens = _account.TokenBalances?.Edges.Count ?? 0;
-
-            var turnoverIntervalsDataList = _transfers
-                .Select(x => new TurnoverIntervalsData(
-                x.Transaction!.Time,
-                new BigInteger(decimal.Parse(x.Amount!.Value ?? "0")),
-                x.Counterparty?.Address?.Equals(_address, StringComparison.InvariantCultureIgnoreCase) != true));
-            var turnoverIntervals = IStatCalculator<FlowTransactionIntervalData>
-                .GetTurnoverIntervals(turnoverIntervalsDataList, _transfers.Min(x => x.Transaction!.Time)).ToList();
-
-            return new()
+            return new FlowWalletStats
             {
-                NativeBalance = _balance.ToFlow(),
-                NativeBalanceUSD = _usdBalance,
-                WalletAge = IStatCalculator
-                    .GetWalletAge(_transfers.Select(x => x.Transaction!.Time)),
                 TotalTransactions = _transactions.Count(),
                 TotalRejectedTransactions = _transfers.Count(t => t.Transaction?.Status?.Equals("Error", StringComparison.InvariantCultureIgnoreCase) == true),
                 MinTransactionTime = intervals.Min(),
                 MaxTransactionTime = intervals.Max(),
                 AverageTransactionTime = intervals.Average(),
-                WalletTurnover = turnoverIntervals.Sum(x => Math.Abs((decimal)x.AmountSum)).ToFlow(),
-                TurnoverIntervals = turnoverIntervals,
-                BalanceChangeInLastMonth = IStatCalculator<FlowTransactionIntervalData>.GetBalanceChangeInLastMonth(turnoverIntervals),
-                BalanceChangeInLastYear = IStatCalculator<FlowTransactionIntervalData>.GetBalanceChangeInLastYear(turnoverIntervals),
                 LastMonthTransactions = _transfers.Count(x => x.Transaction!.Time > monthAgo),
                 LastYearTransactions = _transfers.Count(x => x.Transaction!.Time > yearAgo),
-                TimeFromLastTransaction = (int)((DateTime.UtcNow - _transfers.OrderBy(x => x.Transaction?.Time).Last().Transaction!.Time).TotalDays / 30),
+                TimeFromLastTransaction = (int)((DateTime.UtcNow - _transfers.OrderBy(x => x.Transaction?.Time).Last().Transaction!.Time).TotalDays / 30)
+            };
+        }
+
+        /// <inheritdoc />
+        IWalletNftStats IWalletNftStatsCalculator<FlowWalletStats, FlowTransactionIntervalData>.Stats()
+        {
+            var soldTokens = _nftTransfers
+                .Where(x => x.From?.Address?.Equals(_address, StringComparison.InvariantCultureIgnoreCase) == true)
+                .ToList();
+            var soldSum = IWalletStatsCalculator
+                .TokensSum(soldTokens.Select(x => x.Transaction?.Hash!), _transfers.Select(x => (x.Transaction?.Hash!, BigInteger.Parse(x.Amount?.Value!))));
+
+            var soldTokensIds = soldTokens.Select(x => x.GetTokenUid());
+            var buyTokens = _nftTransfers
+                .Where(t => t.To?.Address?.Equals(_address, StringComparison.InvariantCultureIgnoreCase) == true && soldTokensIds.Contains(t.GetTokenUid()))
+                .ToList();
+            var buySum = IWalletStatsCalculator
+                .TokensSum(buyTokens.Select(x => x.Transaction?.Hash!), _transfers.Select(x => (x.Transaction?.Hash!, BigInteger.Parse(x.Amount?.Value!))));
+
+            var buyNotSoldTokens = _nftTransfers
+                .Where(t => t.To?.Address?.Equals(_address, StringComparison.InvariantCultureIgnoreCase) == true && !soldTokensIds.Contains(t.GetTokenUid()))
+                .ToList();
+            var buyNotSoldSum = IWalletStatsCalculator
+                .TokensSum(buyNotSoldTokens.Select(x => x.Transaction?.Hash!), _transfers.Select(x => (x.Transaction?.Hash!, BigInteger.Parse(x.Amount?.Value!))));
+
+            int holdingTokens = _nftTransfers.Count() - soldTokens.Count;
+            decimal nftWorth = buySum == 0 ? 0 : (decimal)soldSum / (decimal)buySum * (decimal)buyNotSoldSum;
+
+            return new FlowWalletStats
+            {
                 NftHolding = holdingTokens,
                 NftTrading = (soldSum - buySum).ToFlow(),
-                NftWorth = nftWorth.ToFlow(),
-                DeployedContracts = contractsCreated,
-                TokensHolding = totalTokens,
-                TokenBalances = _tokenBalances?.OrderByDescending(b => b.TotalAmountPrice)
+                NftWorth = nftWorth.ToFlow()
             };
         }
     }

@@ -6,7 +6,7 @@
 // ------------------------------------------------------------------------------------------------------
 
 using Nomis.Blockchain.Abstractions;
-using Nomis.SoulboundTokenService.Interfaces.Enums;
+using Nomis.Utils.Enums;
 
 namespace Nomis.Flowscan.Interfaces.Models
 {

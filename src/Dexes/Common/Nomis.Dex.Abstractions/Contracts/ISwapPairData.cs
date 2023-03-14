@@ -7,6 +7,7 @@
 
 using System.Text.Json.Serialization;
 
+using Nomis.Blockchain.Abstractions.Contracts;
 using Nomis.Utils.Extensions;
 
 namespace Nomis.Dex.Abstractions.Contracts

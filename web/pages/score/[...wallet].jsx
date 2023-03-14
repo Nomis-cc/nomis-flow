@@ -54,8 +54,8 @@ export default function Scored({
 
   const { data: wallet, error } = useSWR(
     blockchains.find((b) => b.slug === blockchainSlug).group === "eco"
-      ? `${apiHost}/api/v1/${blockchain}/wallet/${fullAddress}/score?ScoreType=1&TokenAddress=${ecoTokenAddress}`
-      : `${apiHost}/api/v1/${blockchain}/wallet/${fullAddress}/score?ScoreType=0`,
+      ? `${apiHost}/api/v1/${blockchain}/wallet/${fullAddress}/score?ScoreType=1&TokenAddress=${ecoTokenAddress}&UseTokenLists=false&GetHoldTokensBalances=true&GetCyberConnectProtocolData=true`
+      : `${apiHost}/api/v1/${blockchain}/wallet/${fullAddress}/score?ScoreType=0&UseTokenLists=false&GetHoldTokensBalances=true&GetCyberConnectProtocolData=true`,
     fetcher
   );
 
@@ -142,7 +142,8 @@ export default function Scored({
               apiHost={apiHost}
               xummApiKey={xummApiKey}
             />
-            <div className={`mobile ${isScrolled ? "isScrolled" : ""}`}>
+            {/* temp remove header for mobile */}
+            {/* <div className={`mobile ${isScrolled ? "isScrolled" : ""}`}>
               <WalletUser
                 wallet={wallet.data}
                 blockchainSlug={blockchainSlug}
@@ -155,7 +156,7 @@ export default function Scored({
                 apiHost={apiHost}
                 xummApiKey={xummApiKey}
               />
-            </div>
+            </div> */}
           </div>
         ) : (
           <section className="message noSuccess">

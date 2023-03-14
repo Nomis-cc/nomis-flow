@@ -20,7 +20,7 @@ namespace Nomis.Utils.Wrapper
         /// <summary>
         /// Operation is successed.
         /// </summary>
-        bool Succeeded { get; init; }
+        bool Succeeded { get; set; }
     }
 
     /// <summary>
@@ -33,6 +33,6 @@ namespace Nomis.Utils.Wrapper
         /// <summary>
         /// Data.
         /// </summary>
-        TData Data { get; init; }
+        TData Data { get; set; }
     }
 }

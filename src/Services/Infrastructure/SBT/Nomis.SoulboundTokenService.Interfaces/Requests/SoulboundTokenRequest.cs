@@ -5,7 +5,7 @@
 // </copyright>
 // ------------------------------------------------------------------------------------------------------
 
-using Nomis.SoulboundTokenService.Interfaces.Enums;
+using Nomis.Utils.Enums;
 
 namespace Nomis.SoulboundTokenService.Interfaces.Requests
 {

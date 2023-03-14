@@ -5,12 +5,15 @@
 // </copyright>
 // ------------------------------------------------------------------------------------------------------
 
+using Nomis.Utils.Contracts.Properties;
+
 namespace Nomis.Greysafe.Interfaces.Contracts
 {
     /// <summary>
     /// Wallet Greysafe scam reporting service request.
     /// </summary>
-    public interface IWalletGreysafeRequest
+    public interface IWalletGreysafeRequest :
+        IHasAddress
     {
         /// <summary>
         /// Get wallet Greysafe scam reporting service data (with adjusting score value).

@@ -14,9 +14,6 @@ using Microsoft.Extensions.Options;
 using Nomis.Blockchain.Abstractions;
 using Nomis.Blockchain.Abstractions.Contracts;
 using Nomis.Blockchain.Abstractions.Extensions;
-using Nomis.Blockchain.Abstractions.Models;
-using Nomis.Blockchain.Abstractions.Requests;
-using Nomis.Blockchain.Abstractions.Stats;
 using Nomis.DefiLlama.Interfaces.Models;
 using Nomis.Domain.Scoring.Entities;
 using Nomis.Flowscan.Calculators;
@@ -27,7 +24,10 @@ using Nomis.Flowscan.Interfaces.Requests;
 using Nomis.Flowscan.Settings;
 using Nomis.ScoringService.Interfaces;
 using Nomis.SoulboundTokenService.Interfaces;
+using Nomis.Utils.Contracts;
+using Nomis.Utils.Contracts.Requests;
 using Nomis.Utils.Contracts.Services;
+using Nomis.Utils.Contracts.Stats;
 using Nomis.Utils.Extensions;
 using Nomis.Utils.Wrapper;
 
@@ -123,9 +123,9 @@ namespace Nomis.Flowscan
                     tokenTransfers,
                     nftTokenTransfers,
                     tokenBalances)
-                .GetStats() as TWalletStats;
+                .Stats() as TWalletStats;
 
-            double score = walletStats!.GetScore<TWalletStats, TTransactionIntervalData>();
+            double score = walletStats!.CalculateScore<TWalletStats, TTransactionIntervalData>();
             var scoringData = new ScoringData(request.Address, request.Address, ChainId, score, JsonSerializer.Serialize(walletStats));
             await _scoringService.SaveScoringDataToDatabaseAsync(scoringData, cancellationToken).ConfigureAwait(false);
 

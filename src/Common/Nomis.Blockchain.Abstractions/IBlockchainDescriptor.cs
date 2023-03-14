@@ -5,7 +5,9 @@
 // </copyright>
 // ------------------------------------------------------------------------------------------------------
 
-using Nomis.SoulboundTokenService.Interfaces.Enums;
+using Nomis.Blockchain.Abstractions.Contracts;
+using Nomis.Blockchain.Abstractions.Enums;
+using Nomis.Utils.Enums;
 
 namespace Nomis.Blockchain.Abstractions
 {
@@ -59,5 +61,45 @@ namespace Nomis.Blockchain.Abstractions
         /// </summary>
         // ReSharper disable once InconsistentNaming
         public IDictionary<ScoreType, string>? SBTContractAddresses { get; }
+
+        /// <summary>
+        /// Native currency token data.
+        /// </summary>
+        public TokenData? NativeCurrency { get; set; }
+
+        /// <summary>
+        /// Order.
+        /// </summary>
+        public int Order { get; set; }
+
+        /// <summary>
+        /// Icon.
+        /// </summary>
+        public string? Icon { get; set; }
+
+        /// <summary>
+        /// Label icon.
+        /// </summary>
+        public string? LabelIcon { get; set; }
+
+        /// <summary>
+        /// Enabled.
+        /// </summary>
+        public bool Enabled { get; set; }
+
+        /// <summary>
+        /// Type.
+        /// </summary>
+        public BlockchainType Type { get; set; }
+
+        /// <summary>
+        /// Platform ids.
+        /// </summary>
+        public IDictionary<BlockchainPlatform, string>? PlatformIds { get; set; }
+
+        /// <summary>
+        /// Balances checker smart-contract address.
+        /// </summary>
+        public string? BalancesCheckerAddress { get; set; }
     }
 }

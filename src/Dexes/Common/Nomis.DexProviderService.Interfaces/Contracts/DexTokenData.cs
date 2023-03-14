@@ -5,7 +5,7 @@
 // </copyright>
 // ------------------------------------------------------------------------------------------------------
 
-using Nomis.Dex.Abstractions.Contracts;
+using Nomis.Blockchain.Abstractions.Contracts;
 using Nomis.Dex.Abstractions.Enums;
 using Nomis.DexProviderService.Interfaces.Enums;
 

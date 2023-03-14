@@ -9,7 +9,7 @@ using System.ComponentModel.DataAnnotations;
 
 using Microsoft.AspNetCore.Mvc;
 using Nomis.Blockchain.Abstractions.Contracts;
-using Nomis.Blockchain.Abstractions.Requests;
+using Nomis.Utils.Contracts.Requests;
 
 namespace Nomis.Flowscan.Interfaces.Requests
 {
@@ -30,5 +30,15 @@ namespace Nomis.Flowscan.Interfaces.Requests
         [FromQuery]
         [Range(typeof(int), "1", "8760")]
         public int SearchWidthInHours { get; set; } = 6;
+
+        /// <inheritdoc />
+        /// <example>true</example>
+        [FromQuery]
+        public bool UseTokenLists { get; set; } = true;
+
+        /// <inheritdoc />
+        /// <example>false</example>
+        [FromQuery]
+        public bool IncludeUniversalTokenLists { get; set; } = false;
     }
 }

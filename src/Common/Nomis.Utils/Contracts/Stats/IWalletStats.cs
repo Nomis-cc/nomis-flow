@@ -13,19 +13,36 @@ namespace Nomis.Utils.Contracts.Stats
     public interface IWalletStats
     {
         /// <summary>
-        /// Get wallet default stats score.
+        /// No data.
+        /// </summary>
+        public bool NoData { get; set; }
+
+        /// <summary>
+        /// Set wallet stats.
+        /// </summary>
+        /// <typeparam name="TWalletStats">The wallet stats type.</typeparam>
+        /// <param name="stats">The wallet stats.</param>
+        /// <returns>Returns wallet stats with initialized properties.</returns>
+        public TWalletStats FillStatsTo<TWalletStats>(TWalletStats stats)
+            where TWalletStats : class, IWalletStats
+        {
+            return stats;
+        }
+
+        /// <summary>
+        /// Calculate wallet default stats score.
         /// </summary>
         /// <returns>Returns wallet default stats score.</returns>
-        public double GetScore()
+        public double CalculateScore()
         {
             return 0;
         }
 
         /// <summary>
-        /// Get wallet default adjusting score multiplier.
+        /// Calculate wallet default adjusting score multiplier.
         /// </summary>
         /// <returns>Returns wallet default adjusting score multiplier.</returns>
-        public double GetAdjustingScoreMultiplier()
+        public double CalculateAdjustingScoreMultiplier()
         {
             return 1;
         }

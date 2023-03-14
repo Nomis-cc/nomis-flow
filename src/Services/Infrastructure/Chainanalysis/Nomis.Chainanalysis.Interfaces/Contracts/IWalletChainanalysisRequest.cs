@@ -5,12 +5,15 @@
 // </copyright>
 // ------------------------------------------------------------------------------------------------------
 
+using Nomis.Utils.Contracts.Properties;
+
 namespace Nomis.Chainanalysis.Interfaces.Contracts
 {
     /// <summary>
     /// Wallet Chainanalysis sanctions reporting service request.
     /// </summary>
-    public interface IWalletChainanalysisRequest
+    public interface IWalletChainanalysisRequest :
+        IHasAddress
     {
         /// <summary>
         /// Get wallet Chainanalysis sanctions reporting service data (with adjusting score value).

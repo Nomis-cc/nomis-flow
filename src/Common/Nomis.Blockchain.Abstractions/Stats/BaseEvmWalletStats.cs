@@ -8,22 +8,25 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-using Nomis.Blockchain.Abstractions.Models;
 using Nomis.Chainanalysis.Interfaces.Models;
 using Nomis.Chainanalysis.Interfaces.Stats;
+using Nomis.CyberConnect.Interfaces.Models;
+using Nomis.CyberConnect.Interfaces.Stats;
 using Nomis.DefiLlama.Interfaces.Models;
 using Nomis.DefiLlama.Interfaces.Stats;
 using Nomis.Greysafe.Interfaces.Models;
 using Nomis.Greysafe.Interfaces.Stats;
 using Nomis.Snapshot.Interfaces.Models;
 using Nomis.Snapshot.Interfaces.Stats;
+using Nomis.Utils.Contracts;
+using Nomis.Utils.Contracts.Stats;
 
 namespace Nomis.Blockchain.Abstractions.Stats
 {
     /// <summary>
     /// Base EVM wallet stats.
     /// </summary>
-    public abstract class BaseEvmWalletStats<TTransactionIntervalData> :
+    public class BaseEvmWalletStats<TTransactionIntervalData> :
         IWalletCommonStats<TTransactionIntervalData>,
         IWalletNativeBalanceStats,
         IWalletTokenBalancesStats,
@@ -32,12 +35,13 @@ namespace Nomis.Blockchain.Abstractions.Stats
         IWalletContractStats,
         IWalletSnapshotStats,
         IWalletGreysafeStats,
-        IWalletChainanalysisStats
+        IWalletChainanalysisStats,
+        IWalletCyberConnectStats
         where TTransactionIntervalData : class, ITransactionIntervalData
     {
         /// <inheritdoc/>
         [JsonPropertyOrder(-20)]
-        public bool NoData { get; init; }
+        public bool NoData { get; set; }
 
         /// <inheritdoc/>
         [JsonPropertyOrder(-19)]
@@ -45,122 +49,142 @@ namespace Nomis.Blockchain.Abstractions.Stats
 
         /// <inheritdoc/>
         [Display(Description = "Amount of deployed smart-contracts", GroupName = "number")]
-        public int DeployedContracts { get; init; }
+        public virtual int DeployedContracts { get; set; }
 
         /// <inheritdoc/>
         [Display(Description = "Wallet native token balance", GroupName = "Native token")]
         [JsonPropertyOrder(-18)]
-        public decimal NativeBalance { get; init; }
+        public virtual decimal NativeBalance { get; set; }
 
         /// <inheritdoc/>
         [Display(Description = "Wallet native token balance", GroupName = "USD")]
         [JsonPropertyOrder(-17)]
-        public decimal NativeBalanceUSD { get; init; }
+        public virtual decimal NativeBalanceUSD { get; set; }
 
         /// <inheritdoc/>
         [Display(Description = "Wallet hold tokens total balance", GroupName = "USD")]
         [JsonPropertyOrder(-16)]
-        public decimal HoldTokensBalanceUSD => TokenBalances?.Sum(b => b.TotalAmountPrice) ?? 0;
+        public virtual decimal HoldTokensBalanceUSD => TokenBalances?.Sum(b => b.TotalAmountPrice) ?? 0;
 
         /// <inheritdoc/>
         [Display(Description = "The movement of funds on the wallet", GroupName = "Native token")]
         [JsonPropertyOrder(-15)]
-        public decimal WalletTurnover { get; init; }
+        public virtual decimal WalletTurnover { get; set; }
 
         /// <inheritdoc/>
         [Display(Description = "The balance change value in the last month", GroupName = "Native token")]
         [JsonPropertyOrder(-14)]
-        public decimal BalanceChangeInLastMonth { get; init; }
+        public virtual decimal BalanceChangeInLastMonth { get; set; }
 
         /// <inheritdoc/>
         [Display(Description = "The balance change value in the last year", GroupName = "Native token")]
         [JsonPropertyOrder(-13)]
-        public decimal BalanceChangeInLastYear { get; init; }
+        public virtual decimal BalanceChangeInLastYear { get; set; }
 
         /// <inheritdoc/>
         [Display(Description = "Wallet age", GroupName = "months")]
         [JsonPropertyOrder(-12)]
-        public int WalletAge { get; init; }
+        public virtual int WalletAge { get; set; }
 
         /// <inheritdoc/>
         [Display(Description = "Total transactions on wallet", GroupName = "number")]
         [JsonPropertyOrder(-11)]
-        public int TotalTransactions { get; init; }
+        public virtual int TotalTransactions { get; set; }
 
         /// <inheritdoc/>
         [Display(Description = "Total rejected transactions on wallet", GroupName = "number")]
         [JsonPropertyOrder(-10)]
-        public int TotalRejectedTransactions { get; init; }
+        public virtual int TotalRejectedTransactions { get; set; }
 
         /// <inheritdoc/>
         [Display(Description = "Average time interval between transactions", GroupName = "hours")]
         [JsonPropertyOrder(-9)]
-        public double AverageTransactionTime { get; init; }
+        public virtual double AverageTransactionTime { get; set; }
 
         /// <inheritdoc/>
         [Display(Description = "Maximum time interval between transactions", GroupName = "hours")]
         [JsonPropertyOrder(-8)]
-        public double MaxTransactionTime { get; init; }
+        public virtual double MaxTransactionTime { get; set; }
 
         /// <inheritdoc/>
         [Display(Description = "Minimal time interval between transactions", GroupName = "hours")]
         [JsonPropertyOrder(-7)]
-        public double MinTransactionTime { get; init; }
+        public virtual double MinTransactionTime { get; set; }
 
         /// <inheritdoc/>
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public IEnumerable<TTransactionIntervalData>? TurnoverIntervals { get; init; }
+        public virtual IEnumerable<TTransactionIntervalData>? TurnoverIntervals { get; set; }
 
         /// <inheritdoc/>
         [Display(Description = "Time since last transaction", GroupName = "months")]
         [JsonPropertyOrder(-6)]
-        public int TimeFromLastTransaction { get; init; }
+        public virtual int TimeFromLastTransaction { get; set; }
 
         /// <inheritdoc/>
         [Display(Description = "Last month transactions", GroupName = "number")]
         [JsonPropertyOrder(-5)]
-        public int LastMonthTransactions { get; init; }
+        public virtual int LastMonthTransactions { get; set; }
 
         /// <inheritdoc/>
         [Display(Description = "Last year transactions on wallet", GroupName = "number")]
         [JsonPropertyOrder(-4)]
-        public int LastYearTransactions { get; init; }
+        public virtual int LastYearTransactions { get; set; }
 
         /// <inheritdoc/>
         [Display(Description = "Average transaction per months", GroupName = "number")]
         [JsonPropertyOrder(-3)]
-        public double TransactionsPerMonth => WalletAge != 0 ? (double)TotalTransactions / WalletAge : 0;
+        public virtual double TransactionsPerMonth => WalletAge != 0 ? (double)TotalTransactions / WalletAge : 0;
 
         /// <inheritdoc/>
         [Display(Description = "Value of all holding tokens", GroupName = "number")]
         [JsonPropertyOrder(-2)]
-        public int TokensHolding { get; init; }
+        public virtual int TokensHolding { get; set; }
 
         /// <inheritdoc/>
         [Display(Description = "The Snapshot protocol votes", GroupName = "collection")]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public IEnumerable<SnapshotProtocolVoteData>? SnapshotVotes { get; init; }
+        public virtual IEnumerable<SnapshotProtocolVoteData>? SnapshotVotes { get; set; }
 
         /// <inheritdoc/>
         [Display(Description = "The Snapshot protocol proposals", GroupName = "collection")]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public IEnumerable<SnapshotProtocolProposalData>? SnapshotProposals { get; init; }
+        public virtual IEnumerable<SnapshotProtocolProposalData>? SnapshotProposals { get; set; }
 
         /// <inheritdoc/>
         [Display(Description = "The Greysafe scam reports data", GroupName = "collection")]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public IEnumerable<GreysafeReport>? GreysafeReports { get; init; }
+        public virtual IEnumerable<GreysafeReport>? GreysafeReports { get; set; }
 
         /// <inheritdoc/>
         [Display(Description = "The Greysafe sanctions reports data", GroupName = "collection")]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public IEnumerable<ChainanalysisReport>? ChainanalysisReports { get; init; }
+        public virtual IEnumerable<ChainanalysisReport>? ChainanalysisReports { get; set; }
+
+        /// <inheritdoc/>
+        [Display(Description = "The CyberConnect protocol profile", GroupName = "value")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public virtual CyberConnectProfileData? CyberConnectProfile { get; set; }
+
+        /// <inheritdoc/>
+        [Display(Description = "The CyberConnect protocol subscribings", GroupName = "collection")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public virtual IEnumerable<CyberConnectSubscribingProfileData>? CyberConnectSubscribings { get; set; }
+
+        /// <inheritdoc/>
+        [Display(Description = "The CyberConnect protocol likes", GroupName = "collection")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public virtual IEnumerable<CyberConnectLikeData>? CyberConnectLikes { get; set; }
+
+        /// <inheritdoc/>
+        [Display(Description = "The CyberConnect protocol essences", GroupName = "collection")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public virtual IEnumerable<CyberConnectEssenceData>? CyberConnectEssences { get; set; }
 
         /// <inheritdoc/>
         [Display(Description = "Hold tokens balances", GroupName = "collection")]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         [JsonPropertyOrder(-1)]
-        public IEnumerable<TokenBalanceData>? TokenBalances { get; init; }
+        public virtual IEnumerable<TokenBalanceData>? TokenBalances { get; set; }
 
         /// <inheritdoc/>
         [JsonPropertyOrder(int.MaxValue)]
@@ -173,15 +197,15 @@ namespace Nomis.Blockchain.Abstractions.Stats
         [JsonIgnore]
         public virtual IEnumerable<Func<double>> AdditionalScores => new List<Func<double>>
         {
-            () => (this as IWalletSnapshotStats).GetScore()
+            () => (this as IWalletSnapshotStats).CalculateScore()
         };
 
         /// <inheritdoc/>
         [JsonIgnore]
         public virtual IEnumerable<Func<double>> AdjustingScoreMultipliers => new List<Func<double>>
         {
-            () => (this as IWalletGreysafeStats).GetAdjustingScoreMultiplier(),
-            () => (this as IWalletChainanalysisStats).GetAdjustingScoreMultiplier()
+            () => (this as IWalletGreysafeStats).CalculateAdjustingScoreMultiplier(),
+            () => (this as IWalletChainanalysisStats).CalculateAdjustingScoreMultiplier()
         };
 
         /// <inheritdoc cref="IWalletCommonStats{ITransactionIntervalData}.ExcludedStatDescriptions"/>
@@ -194,7 +218,11 @@ namespace Nomis.Blockchain.Abstractions.Stats
                 nameof(SnapshotVotes),
                 nameof(TokenBalances),
                 nameof(GreysafeReports),
-                nameof(ChainanalysisReports)
+                nameof(ChainanalysisReports),
+                nameof(CyberConnectProfile),
+                nameof(CyberConnectSubscribings),
+                nameof(CyberConnectLikes),
+                nameof(CyberConnectEssences)
             });
     }
 }

@@ -11,8 +11,10 @@ using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Mvc;
 using Nomis.Blockchain.Abstractions.Contracts;
 using Nomis.Chainanalysis.Interfaces.Contracts;
+using Nomis.CyberConnect.Interfaces.Contracts;
 using Nomis.Greysafe.Interfaces.Contracts;
 using Nomis.Snapshot.Interfaces.Contracts;
+using Nomis.Utils.Contracts.Requests;
 
 namespace Nomis.Blockchain.Abstractions.Requests
 {
@@ -24,37 +26,56 @@ namespace Nomis.Blockchain.Abstractions.Requests
         IWalletTokensBalancesRequest,
         IWalletSnapshotProtocolRequest,
         IWalletGreysafeRequest,
-        IWalletChainanalysisRequest
+        IWalletChainanalysisRequest,
+        IWalletCyberConnectProtocolRequest
     {
         /// <inheritdoc />
         /// <example>true</example>
         [FromQuery]
-        [JsonPropertyOrder(-5)]
-        public bool GetHoldTokensBalances { get; set; } = true;
+        [JsonPropertyOrder(-8)]
+        public virtual bool GetHoldTokensBalances { get; set; } = true;
 
         /// <inheritdoc />
         /// <example>6</example>
         [FromQuery]
         [Range(typeof(int), "1", "8760")]
-        [JsonPropertyOrder(-4)]
-        public int SearchWidthInHours { get; set; } = 6;
+        [JsonPropertyOrder(-7)]
+        public virtual int SearchWidthInHours { get; set; } = 6;
 
         /// <inheritdoc />
         /// <example>false</example>
         [FromQuery]
+        [JsonPropertyOrder(-6)]
+        public virtual bool UseTokenLists { get; set; } = false;
+
+        /// <inheritdoc />
+        /// <example>false</example>
+        [FromQuery]
+        [JsonPropertyOrder(-5)]
+        public virtual bool IncludeUniversalTokenLists { get; set; } = false;
+
+        /// <inheritdoc />
+        /// <example>false</example>
+        [FromQuery]
+        [JsonPropertyOrder(-4)]
+        public virtual bool GetSnapshotProtocolData { get; set; } = false;
+
+        /// <inheritdoc />
+        /// <example>true</example>
+        [FromQuery]
         [JsonPropertyOrder(-3)]
-        public bool GetSnapshotProtocolData { get; set; } = false;
+        public virtual bool GetGreysafeData { get; set; } = true;
 
         /// <inheritdoc />
         /// <example>true</example>
         [FromQuery]
         [JsonPropertyOrder(-2)]
-        public bool GetGreysafeData { get; set; } = true;
+        public virtual bool GetChainanalysisData { get; set; } = true;
 
         /// <inheritdoc />
         /// <example>true</example>
         [FromQuery]
         [JsonPropertyOrder(-1)]
-        public bool GetChainanalysisData { get; set; } = true;
+        public virtual bool GetCyberConnectProtocolData { get; set; }
     }
 }

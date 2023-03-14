@@ -17,7 +17,9 @@ using Nomis.Api.Common.Extensions;
 using Nomis.Api.Common.Middlewares;
 using Nomis.Api.Common.Settings;
 using Nomis.Api.Common.Swagger.Filters;
+using Nomis.Api.CyberConnect.Extensions;
 using Nomis.Api.DefiLlama.Extensions;
+using Nomis.Api.DexAggregator.Extensions;
 using Nomis.Api.Flow.Extensions;
 using Nomis.Api.Greysafe.Extensions;
 using Nomis.Api.Hapi.Extensions;
@@ -27,9 +29,11 @@ using Nomis.CacheProviderService.Extensions;
 using Nomis.Chainanalysis;
 using Nomis.Coingecko.Extensions;
 using Nomis.CurrentUserService.Extensions;
+using Nomis.CyberConnect;
 using Nomis.DataAccess.PostgreSql.Extensions;
 using Nomis.DataAccess.PostgreSql.Scoring.Extensions;
 using Nomis.DefiLlama;
+using Nomis.DexProviderService;
 using Nomis.Flowscan;
 using Nomis.Greysafe;
 using Nomis.HapiExplorer;
@@ -66,6 +70,7 @@ builder.Services
 var scoringOptions = builder.ConfigureScoringOptions()
     .WithDefiLlamaAPI<DefiLlamaApi>()
     .WithSnapshotProtocol<SnapshotHub>()
+    .WithCyberConnectProtocol<CyberConnect>()
     .WithAaveLendingProtocol<Aave>()
     .WithHAPIProtocol<HapiExplorer>()
     .WithGreysafeService<Greysafe>()
@@ -73,6 +78,7 @@ var scoringOptions = builder.ConfigureScoringOptions()
     .WithNonEvmSoulboundTokenService<NonEvmSoulboundToken>()
     .WithEvmSoulboundTokenService<EvmSoulboundToken>()
     .WithFlowBlockchain<Flowscan>()
+    .WithDexAggregator<DexProviderRegistrar>()
     .Build();
 
 builder.Services

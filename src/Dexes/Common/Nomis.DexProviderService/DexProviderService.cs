@@ -11,6 +11,7 @@ using System.Text.Json;
 using Microsoft.Extensions.Logging;
 using Nomis.Blockchain.Abstractions;
 using Nomis.Blockchain.Abstractions.Contracts;
+using Nomis.Blockchain.Abstractions.Enums;
 using Nomis.CacheProviderService.Interfaces;
 using Nomis.Dex.Abstractions;
 using Nomis.Dex.Abstractions.Contracts;
@@ -251,14 +252,21 @@ namespace Nomis.DexProviderService
         }
 
         /// <inheritdoc />
-        public Result<List<IBlockchainDescriptor>> Blockchains()
+        public Result<List<IBlockchainDescriptor>> Blockchains(
+            BlockchainType type = BlockchainType.None)
         {
-            return Result<List<IBlockchainDescriptor>>
-                .Success(
-                    _blockchainDescriptors
-                        .OrderBy(x => x.ChainId)
-                    .ToList(),
-                    "Got the list of all supported blockchains.");
+            var result = _blockchainDescriptors
+                .Where(x => x.Enabled)
+                .OrderBy(x => x.Order)
+                .ThenBy(x => x.ChainId)
+                .AsEnumerable();
+
+            if (type != BlockchainType.None)
+            {
+                result = result.Where(x => x.Type == type);
+            }
+
+            return Result<List<IBlockchainDescriptor>>.Success(result.ToList(), "Got the list of all supported blockchains.");
         }
 
         /// <inheritdoc />

@@ -8,8 +8,8 @@
 using System.Numerics;
 using System.Text.Json.Serialization;
 
-using Nomis.Blockchain.Abstractions.Models;
 using Nomis.Flowscan.Interfaces.Extensions;
+using Nomis.Utils.Contracts;
 
 namespace Nomis.Flowscan.Interfaces.Models
 {

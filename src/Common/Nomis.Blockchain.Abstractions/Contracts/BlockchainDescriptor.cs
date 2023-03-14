@@ -7,7 +7,8 @@
 
 using System.Text.Json.Serialization;
 
-using Nomis.SoulboundTokenService.Interfaces.Enums;
+using Nomis.Blockchain.Abstractions.Enums;
+using Nomis.Utils.Enums;
 
 // ReSharper disable InconsistentNaming
 namespace Nomis.Blockchain.Abstractions.Contracts
@@ -39,37 +40,14 @@ namespace Nomis.Blockchain.Abstractions.Contracts
             RPCUrls = blockchainDescriptor?.RPCUrls;
             IsEVMCompatible = blockchainDescriptor?.IsEVMCompatible ?? false;
             SBTContractAddresses = blockchainDescriptor?.SBTContractAddresses;
-        }
-
-        /// <summary>
-        /// Initialize <see cref="BlockchainDescriptor"/>.
-        /// </summary>
-        /// <param name="chainId"><see cref="ChainId"/>.</param>
-        /// <param name="chainName"><see cref="ChainName"/>.</param>
-        /// <param name="blockchainName"><see cref="BlockchainName"/>.</param>
-        /// <param name="blockchainSlug"><see cref="BlockchainSlug"/>.</param>
-        /// <param name="blockExplorerUrls"><see cref="BlockExplorerUrls"/>.</param>
-        /// <param name="isEVMCompatible"><see cref="IsEVMCompatible"/>.</param>
-        /// <param name="rpcUrls"><see cref="RPCUrls"/>.</param>
-        /// <param name="sbtContractAddresses"><see cref="SBTContractAddresses"/>.</param>
-        public BlockchainDescriptor(
-            ulong chainId,
-            string? chainName = null,
-            string? blockchainName = null,
-            string? blockchainSlug = null,
-            List<string>? blockExplorerUrls = null,
-            List<string>? rpcUrls = null,
-            Dictionary<ScoreType, string>? sbtContractAddresses = null,
-            bool isEVMCompatible = false)
-        {
-            ChainId = chainId;
-            ChainName = chainName;
-            BlockchainName = blockchainName;
-            BlockchainSlug = blockchainSlug;
-            BlockExplorerUrls = blockExplorerUrls;
-            RPCUrls = rpcUrls;
-            IsEVMCompatible = isEVMCompatible;
-            SBTContractAddresses = sbtContractAddresses;
+            NativeCurrency = blockchainDescriptor?.NativeCurrency;
+            Order = blockchainDescriptor?.Order ?? 1;
+            Icon = blockchainDescriptor?.Icon;
+            LabelIcon = blockchainDescriptor?.LabelIcon;
+            Enabled = blockchainDescriptor?.Enabled ?? false;
+            Type = blockchainDescriptor?.Type ?? BlockchainType.None;
+            PlatformIds = blockchainDescriptor?.PlatformIds;
+            BalancesCheckerAddress = blockchainDescriptor?.BalancesCheckerAddress;
         }
 
         /// <inheritdoc cref="IBlockchainDescriptor.ChainId"/>
@@ -103,5 +81,37 @@ namespace Nomis.Blockchain.Abstractions.Contracts
         /// <inheritdoc cref="IBlockchainDescriptor.SBTContractAddresses"/>
         [JsonInclude]
         public IDictionary<ScoreType, string>? SBTContractAddresses { get; set; } = new Dictionary<ScoreType, string>();
+
+        /// <inheritdoc cref="IBlockchainDescriptor.NativeCurrency"/>
+        [JsonInclude]
+        public TokenData? NativeCurrency { get; set; }
+
+        /// <inheritdoc cref="IBlockchainDescriptor.Order"/>
+        [JsonInclude]
+        public int Order { get; set; }
+
+        /// <inheritdoc cref="IBlockchainDescriptor.Icon"/>
+        [JsonInclude]
+        public string? Icon { get; set; }
+
+        /// <inheritdoc cref="IBlockchainDescriptor.LabelIcon"/>
+        [JsonInclude]
+        public string? LabelIcon { get; set; }
+
+        /// <inheritdoc cref="IBlockchainDescriptor.Enabled"/>
+        [JsonInclude]
+        public bool Enabled { get; set; }
+
+        /// <inheritdoc cref="IBlockchainDescriptor.Type"/>
+        [JsonInclude]
+        public BlockchainType Type { get; set; }
+
+        /// <inheritdoc cref="IBlockchainDescriptor.PlatformIds"/>
+        [JsonInclude]
+        public IDictionary<BlockchainPlatform, string>? PlatformIds { get; set; } = new Dictionary<BlockchainPlatform, string>();
+
+        /// <inheritdoc cref="IBlockchainDescriptor.BalancesCheckerAddress"/>
+        [JsonInclude]
+        public string? BalancesCheckerAddress { get; set; }
     }
 }

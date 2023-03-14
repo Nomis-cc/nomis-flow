@@ -422,6 +422,11 @@ namespace Nomis.DexProviderService.Interfaces.Enums
         /// <summary>
         /// Increment.
         /// </summary>
-        IncrementFi
+        IncrementFi,
+
+        /// <summary>
+        /// Zircon.
+        /// </summary>
+        Zircon
     }
 }

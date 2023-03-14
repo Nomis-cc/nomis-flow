@@ -21,25 +21,40 @@ namespace Nomis.Blockchain.Abstractions.Stats
         private const double NftWorthPercents = 23.75 / 100;
 
         /// <summary>
+        /// Set wallet NFT stats.
+        /// </summary>
+        /// <typeparam name="TWalletStats">The wallet stats type.</typeparam>
+        /// <param name="stats">The wallet stats.</param>
+        /// <returns>Returns wallet stats with initialized properties.</returns>
+        public new TWalletStats FillStatsTo<TWalletStats>(TWalletStats stats)
+            where TWalletStats : class, IWalletNftStats
+        {
+            stats.NftHolding = NftHolding;
+            stats.NftTrading = NftTrading;
+            stats.NftWorth = NftWorth;
+            return stats;
+        }
+
+        /// <summary>
         /// Total NFTs on wallet (number).
         /// </summary>
-        public int NftHolding { get; init; }
+        public int NftHolding { get; set; }
 
         /// <summary>
         /// NFT trading activity (Native token).
         /// </summary>
-        public decimal NftTrading { get; init; }
+        public decimal NftTrading { get; set; }
 
         /// <summary>
         /// NFT worth on wallet (Native token).
         /// </summary>
-        public decimal NftWorth { get; init; }
+        public decimal NftWorth { get; set; }
 
         /// <summary>
-        /// Get wallet NFT stats score.
+        /// Calculate wallet NFT stats score.
         /// </summary>
         /// <returns>Returns wallet NFT stats score.</returns>
-        public new double GetScore()
+        public new double CalculateScore()
         {
             double result = 0.0;
             double nft = 0.0;

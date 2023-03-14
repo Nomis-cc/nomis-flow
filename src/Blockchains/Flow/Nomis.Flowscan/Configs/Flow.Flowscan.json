@@ -1,6 +1,6 @@
 {
   "FlowscanSettings": {
-    "ApiKey": "",
+    "ApiKey": "ca1ed0771adc4f880e90284bfd9f106c019a5352",
     "ApiBaseUrl": "https://query.flowgraph.co/",
     "BlockchainDescriptor": {
       "ChainId": 111121,
@@ -10,6 +10,22 @@
       "BlockExplorerUrls": [
         "https://flowscan.org/"
       ],
+      "NativeCurrency": {
+        "Id": "",
+        "Name": "Flow",
+        "Symbol": "FLOW",
+        "Decimals": 8,
+        "LogoUri": "https://img.api.cryptorank.io/coins/150x150.flow1600856785709.png"
+      },
+      "Order": 1000,
+      "Icon": "https://img.api.cryptorank.io/coins/150x150.flow1600856785709.png",
+      "LabelIcon": null,
+      "Enabled": true,
+      "Type": "Flow",
+      "PlatformIds": {
+        "Coingecko": "flow"
+      },
+      "BalancesCheckerAddress": "",
       "RPCUrls": null,
       "IsEVMCompatible": false,
       "SBTContractAddresses": null

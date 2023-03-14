@@ -16,7 +16,7 @@ using Nomis.Api.Common.Swagger.Examples;
 using Nomis.Flowscan.Interfaces;
 using Nomis.Flowscan.Interfaces.Models;
 using Nomis.Flowscan.Interfaces.Requests;
-using Nomis.SoulboundTokenService.Interfaces.Enums;
+using Nomis.Utils.Enums;
 using Nomis.Utils.Wrapper;
 using Swashbuckle.AspNetCore.Annotations;
 

@@ -17,24 +17,37 @@ namespace Nomis.Chainanalysis.Interfaces.Stats
         IWalletStats
     {
         /// <summary>
-        /// The Chainanalysis sanctions reports.
+        /// Set wallet Chainanalysis sanctions reporting service stats.
         /// </summary>
-        public IEnumerable<ChainanalysisReport>? ChainanalysisReports { get; init; }
+        /// <typeparam name="TWalletStats">The wallet stats type.</typeparam>
+        /// <param name="stats">The wallet stats.</param>
+        /// <returns>Returns wallet stats with initialized properties.</returns>
+        public new TWalletStats FillStatsTo<TWalletStats>(TWalletStats stats)
+            where TWalletStats : class, IWalletChainanalysisStats
+        {
+            stats.ChainanalysisReports = ChainanalysisReports;
+            return stats;
+        }
 
         /// <summary>
-        /// Get wallet Chainanalysis stats score.
+        /// The Chainanalysis sanctions reports.
+        /// </summary>
+        public IEnumerable<ChainanalysisReport>? ChainanalysisReports { get; set; }
+
+        /// <summary>
+        /// Calculate wallet Chainanalysis stats score.
         /// </summary>
         /// <returns>Returns wallet Chainanalysis protocol stats score.</returns>
-        public new double GetScore()
+        public new double CalculateScore()
         {
             return 0;
         }
 
         /// <summary>
-        /// Get wallet Chainanalysis adjusting score multiplier.
+        /// Calculate wallet Chainanalysis adjusting score multiplier.
         /// </summary>
         /// <returns>Returns wallet Chainanalysis adjusting score multiplier.</returns>
-        public new double GetAdjustingScoreMultiplier()
+        public new double CalculateAdjustingScoreMultiplier()
         {
             // TODO - add
             return 1;

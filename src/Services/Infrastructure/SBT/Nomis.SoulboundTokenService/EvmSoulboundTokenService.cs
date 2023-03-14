@@ -12,12 +12,12 @@ using Nethereum.ABI.EIP712;
 using Nethereum.Signer;
 using Nethereum.Signer.EIP712;
 using Nomis.SoulboundTokenService.Interfaces;
-using Nomis.SoulboundTokenService.Interfaces.Enums;
 using Nomis.SoulboundTokenService.Interfaces.Models;
 using Nomis.SoulboundTokenService.Interfaces.Requests;
 using Nomis.SoulboundTokenService.Models;
 using Nomis.SoulboundTokenService.Settings;
 using Nomis.Utils.Contracts.Services;
+using Nomis.Utils.Enums;
 using Nomis.Utils.Wrapper;
 
 namespace Nomis.SoulboundTokenService

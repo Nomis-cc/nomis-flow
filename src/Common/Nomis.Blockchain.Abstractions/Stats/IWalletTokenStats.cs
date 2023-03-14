@@ -18,15 +18,28 @@ namespace Nomis.Blockchain.Abstractions.Stats
         private const double TokensHoldingPercents = 3.86 / 100;
 
         /// <summary>
-        /// Value of all holding tokens (number).
+        /// Set wallet token stats.
         /// </summary>
-        public int TokensHolding { get; init; }
+        /// <typeparam name="TWalletStats">The wallet stats type.</typeparam>
+        /// <param name="stats">The wallet stats.</param>
+        /// <returns>Returns wallet stats with initialized properties.</returns>
+        public new TWalletStats FillStatsTo<TWalletStats>(TWalletStats stats)
+            where TWalletStats : class, IWalletTokenStats
+        {
+            stats.TokensHolding = TokensHolding;
+            return stats;
+        }
 
         /// <summary>
-        /// Get wallet token stats score.
+        /// Value of all holding tokens (number).
+        /// </summary>
+        public int TokensHolding { get; set; }
+
+        /// <summary>
+        /// Calculate wallet token stats score.
         /// </summary>
         /// <returns>Returns wallet token stats score.</returns>
-        public new double GetScore()
+        public new double CalculateScore()
         {
             return TokensHoldingScore(TokensHolding) / 100 * TokensHoldingPercents;
         }

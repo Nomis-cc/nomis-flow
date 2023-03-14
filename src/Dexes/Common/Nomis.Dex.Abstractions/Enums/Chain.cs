@@ -241,6 +241,11 @@ namespace Nomis.Dex.Abstractions.Enums
         Avalanche = 43114,
 
         /// <summary>
+        /// Base Goerli.
+        /// </summary>
+        Base = 84531,
+
+        /// <summary>
         /// Solana.
         /// </summary>
         Solana = 111111,

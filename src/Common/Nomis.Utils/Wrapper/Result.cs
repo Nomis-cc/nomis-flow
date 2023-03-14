@@ -27,7 +27,7 @@ namespace Nomis.Utils.Wrapper
 
         /// <inheritdoc/>
         /// <example>true</example>
-        public bool Succeeded { get; init; }
+        public bool Succeeded { get; set; }
 
         /// <summary>
         /// Fail operation result.
@@ -201,7 +201,7 @@ namespace Nomis.Utils.Wrapper
         }
 
         /// <inheritdoc/>
-        public TData Data { get; init; }
+        public TData Data { get; set; }
 
         /// <summary>
         /// Fail operation result with data.

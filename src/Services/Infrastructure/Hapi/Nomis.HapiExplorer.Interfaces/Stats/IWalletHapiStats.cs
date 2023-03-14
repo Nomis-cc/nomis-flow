@@ -17,27 +17,40 @@ namespace Nomis.HapiExplorer.Interfaces.Stats
         IWalletStats
     {
         /// <summary>
-        /// The HAPI protocol risk score.
+        /// Set wallet HAPI protocol stats.
         /// </summary>
-        public HapiProxyRiskScoreResponse? HapiRiskScore { get; init; }
+        /// <typeparam name="TWalletStats">The wallet stats type.</typeparam>
+        /// <param name="stats">The wallet stats.</param>
+        /// <returns>Returns wallet stats with initialized properties.</returns>
+        public new TWalletStats FillStatsTo<TWalletStats>(TWalletStats stats)
+            where TWalletStats : class, IWalletHapiStats
+        {
+            stats.HapiRiskScore = HapiRiskScore;
+            return stats;
+        }
 
         /// <summary>
-        /// Get wallet HAPI protocol stats score.
+        /// The HAPI protocol risk score.
+        /// </summary>
+        public HapiProxyRiskScoreResponse? HapiRiskScore { get; set; }
+
+        /// <summary>
+        /// Calculate wallet HAPI protocol stats score.
         /// </summary>
         /// <returns>Returns wallet HAPI protocol stats score.</returns>
-        public new double GetScore()
+        public new double CalculateScore()
         {
             return 0;
         }
 
         /// <summary>
-        /// Get wallet HAPI protocol adjusting score multiplier.
+        /// Calculate wallet HAPI protocol adjusting score multiplier.
         /// </summary>
         /// <remarks>
         /// <see href="https://hapi-one.gitbook.io/hapi-protocol/hapi-core-of-decentralized-cybersecurity/risk-assessment"/>
         /// </remarks>
         /// <returns>Returns wallet HAPI protocol adjusting score multiplier.</returns>
-        public new double GetAdjustingScoreMultiplier()
+        public new double CalculateAdjustingScoreMultiplier()
         {
             return HapiRiskScore?.Address?.Risk switch
             {

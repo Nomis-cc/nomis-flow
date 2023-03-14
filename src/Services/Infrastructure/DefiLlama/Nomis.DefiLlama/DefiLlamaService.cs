@@ -23,11 +23,11 @@ namespace Nomis.DefiLlama
         private readonly HttpClient _client;
 
         public DefiLlamaService(
-            IOptions<DefiLlamaSettings> coingeckoOptions)
+            IOptions<DefiLlamaSettings> defillamaOptions)
         {
             _client = new()
             {
-                BaseAddress = new(coingeckoOptions.Value.ApiBaseUrl ?? throw new ArgumentNullException(nameof(coingeckoOptions.Value.ApiBaseUrl)))
+                BaseAddress = new(defillamaOptions.Value.ApiBaseUrl ?? throw new ArgumentNullException(nameof(defillamaOptions.Value.ApiBaseUrl)))
             };
         }
 

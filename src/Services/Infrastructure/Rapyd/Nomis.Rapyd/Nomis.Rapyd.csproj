@@ -20,4 +20,8 @@
     <PackageReference Include="RestSharp" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Nomis.Rapyd.Interfaces\Nomis.Rapyd.Interfaces.csproj" />
+  </ItemGroup>
+
 </Project>

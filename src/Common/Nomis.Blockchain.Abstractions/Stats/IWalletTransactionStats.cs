@@ -21,34 +21,54 @@ namespace Nomis.Blockchain.Abstractions.Stats
         private const double LastMonthPercents = 5.7 / 100;
 
         /// <summary>
+        /// Set wallet transaction stats.
+        /// </summary>
+        /// <typeparam name="TWalletStats">The wallet stats type.</typeparam>
+        /// <param name="stats">The wallet stats.</param>
+        /// <returns>Returns wallet stats with initialized properties.</returns>
+        public new TWalletStats FillStatsTo<TWalletStats>(TWalletStats stats)
+            where TWalletStats : class, IWalletTransactionStats
+        {
+            stats.TotalTransactions = TotalTransactions;
+            stats.TotalRejectedTransactions = TotalRejectedTransactions;
+            stats.AverageTransactionTime = AverageTransactionTime;
+            stats.MaxTransactionTime = MaxTransactionTime;
+            stats.MinTransactionTime = MinTransactionTime;
+            stats.TimeFromLastTransaction = TimeFromLastTransaction;
+            stats.LastMonthTransactions = LastMonthTransactions;
+            stats.LastYearTransactions = LastYearTransactions;
+            return stats;
+        }
+
+        /// <summary>
         /// Total transactions on wallet (number).
         /// </summary>
-        public int TotalTransactions { get; init; }
+        public int TotalTransactions { get; set; }
 
         /// <summary>
         /// Total rejected transactions on wallet (number).
         /// </summary>
-        public int TotalRejectedTransactions { get; init; }
+        public int TotalRejectedTransactions { get; set; }
 
         /// <summary>
         /// Average time interval between transactions (hours).
         /// </summary>
-        public double AverageTransactionTime { get; init; }
+        public double AverageTransactionTime { get; set; }
 
         /// <summary>
         /// Maximum time interval between transactions (hours).
         /// </summary>
-        public double MaxTransactionTime { get; init; }
+        public double MaxTransactionTime { get; set; }
 
         /// <summary>
         /// Minimal time interval between transactions (hours).
         /// </summary>
-        public double MinTransactionTime { get; init; }
+        public double MinTransactionTime { get; set; }
 
         /// <summary>
         /// Time since last transaction (months).
         /// </summary>
-        public int TimeFromLastTransaction { get; init; }
+        public int TimeFromLastTransaction { get; set; }
 
         /// <summary>
         /// Average transaction per months (number).
@@ -58,18 +78,18 @@ namespace Nomis.Blockchain.Abstractions.Stats
         /// <summary>
         /// Last month transactions (number).
         /// </summary>
-        public int LastMonthTransactions { get; init; }
+        public int LastMonthTransactions { get; set; }
 
         /// <summary>
         /// Last year transactions on wallet (number).
         /// </summary>
-        public int LastYearTransactions { get; init; }
+        public int LastYearTransactions { get; set; }
 
         /// <summary>
-        /// Get wallet transaction stats score.
+        /// Calculate wallet transaction stats score.
         /// </summary>
         /// <returns>Returns wallet transaction stats score.</returns>
-        public new double GetScore()
+        public new double CalculateScore()
         {
             double result = TotalTransactionsScore(TotalTransactions) / 100 * TotalTransactionsPercents;
 

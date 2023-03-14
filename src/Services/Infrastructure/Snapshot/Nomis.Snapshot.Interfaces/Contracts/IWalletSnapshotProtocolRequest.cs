@@ -5,12 +5,15 @@
 // </copyright>
 // ------------------------------------------------------------------------------------------------------
 
+using Nomis.Utils.Contracts.Properties;
+
 namespace Nomis.Snapshot.Interfaces.Contracts
 {
     /// <summary>
     /// Wallet Snapshot Protocol request.
     /// </summary>
-    public interface IWalletSnapshotProtocolRequest
+    public interface IWalletSnapshotProtocolRequest :
+        IHasAddress
     {
         /// <summary>
         /// Get wallet Snapshot protocol data (votes and proposals).

@@ -17,15 +17,28 @@ namespace Nomis.Aave.Interfaces.Stats
         IWalletStats
     {
         /// <summary>
+        /// Set wallet Aave stats.
+        /// </summary>
+        /// <typeparam name="TWalletStats">The wallet stats type.</typeparam>
+        /// <param name="stats">The wallet stats.</param>
+        /// <returns>Returns wallet stats with initialized properties.</returns>
+        public new TWalletStats FillStatsTo<TWalletStats>(TWalletStats stats)
+            where TWalletStats : class, IWalletAaveStats
+        {
+            stats.AaveData = AaveData;
+            return stats;
+        }
+
+        /// <summary>
         /// Aave user account data.
         /// </summary>
         public AaveUserAccountDataResponse? AaveData { get; set; }
 
         /// <summary>
-        /// Get wallet Aave protocol stats score.
+        /// Calculate wallet Aave protocol stats score.
         /// </summary>
         /// <returns>Returns wallet Aave protocol stats score.</returns>
-        public new double GetScore()
+        public new double CalculateScore()
         {
             // TODO - add calculation
             return 0;

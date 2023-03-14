@@ -5,9 +5,9 @@
 // </copyright>
 // ------------------------------------------------------------------------------------------------------
 
-using Nomis.SoulboundTokenService.Interfaces.Enums;
 using Nomis.SoulboundTokenService.Models;
 using Nomis.Utils.Contracts.Common;
+using Nomis.Utils.Enums;
 
 namespace Nomis.SoulboundTokenService.Settings
 {

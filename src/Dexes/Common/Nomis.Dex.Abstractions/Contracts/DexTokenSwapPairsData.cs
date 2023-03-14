@@ -8,6 +8,7 @@
 using System.Globalization;
 using System.Numerics;
 
+using Nomis.Blockchain.Abstractions.Contracts;
 using Nomis.Dex.Abstractions.Responses;
 
 namespace Nomis.Dex.Abstractions.Contracts
@@ -83,7 +84,7 @@ namespace Nomis.Dex.Abstractions.Contracts
             string tokenId,
             BigInteger? tokenBalance,
             SwapPairDataResponse swapPairs,
-            IReadOnlyList<TokenData>? tokensData = null)
+            IEnumerable<TokenData> tokensData)
         {
             var tokenSwapPairsWithLiquidity = swapPairs
                 .DexSwapPairs
@@ -145,7 +146,7 @@ namespace Nomis.Dex.Abstractions.Contracts
                 tokenData = tokenDataList.FirstOrDefault();
             }
 
-            tokenData = tokensData?
+            tokenData = tokensData
                 .FirstOrDefault(t => t.Id?.Equals(tokenData?.Id, StringComparison.OrdinalIgnoreCase) == true) ?? tokenData;
 
             decimal.TryParse(tokenBalance.ToString(), NumberStyles.AllowDecimalPoint, new NumberFormatInfo { CurrencyDecimalSeparator = "." }, out decimal decimalTokenBalance);

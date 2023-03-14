@@ -25,6 +25,6 @@ namespace Nomis.Api.Common.Swagger.Examples
 
         /// <inheritdoc />
         /// <example>false</example>
-        public bool Succeeded { get; init; }
+        public bool Succeeded { get; set; }
     }
 }

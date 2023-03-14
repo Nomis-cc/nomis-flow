@@ -6,11 +6,11 @@
 // ------------------------------------------------------------------------------------------------------
 
 using Nomis.Blockchain.Abstractions;
+using Nomis.Blockchain.Abstractions.Enums;
 using Nomis.Dex.Abstractions.Contracts;
 using Nomis.Dex.Abstractions.Enums;
 using Nomis.Dex.Abstractions.Responses;
 using Nomis.DexProviderService.Interfaces.Contracts;
-using Nomis.DexProviderService.Interfaces.Enums;
 using Nomis.DexProviderService.Interfaces.Requests;
 using Nomis.Utils.Contracts.Services;
 using Nomis.Utils.Wrapper;
@@ -52,8 +52,10 @@ namespace Nomis.DexProviderService.Interfaces
         /// <summary>
         /// Get the list of all supported blockchains.
         /// </summary>
+        /// <param name="type">Blockchain type.</param>
         /// <returns>Returns the list of all supported blockchains.</returns>
-        Result<List<IBlockchainDescriptor>> Blockchains();
+        Result<List<IBlockchainDescriptor>> Blockchains(
+            BlockchainType type = BlockchainType.None);
 
         /// <summary>
         /// Get the list of swap pairs from all supported DEXes by blockchain.

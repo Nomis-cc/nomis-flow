@@ -229,7 +229,7 @@
         "IsResponseList": false,
         "Provider": "Uma",
         "Urls": {
-          "Ethereum": "https://umaproject.org/uma.tokenlist.json"
+          "Ethereum": "https://raw.githubusercontent.com/UMAprotocol/website/master/public/uma.tokenlist.json"
         }
       },
       {
@@ -711,6 +711,14 @@
         "Provider": "IncrementFi",
         "Urls": {
           "Flow": "https://raw.githubusercontent.com/IncrementFi/token-list/main/tokenlist.mainnet.json"
+        }
+      },
+      {
+        "IsEnabled": true,
+        "IsResponseList": false,
+        "Provider": "Zircon",
+        "Urls": {
+          "None": "https://raw.githubusercontent.com/Zircon-Finance/zircon-interface/9a03e937f98f52b81239d5b5b89e05e334b7a51f/public/tokens.json"
         }
       }
     ]
